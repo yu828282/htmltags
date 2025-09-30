@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive HTML Tag Practice Pad 🚀</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        /* Top Section: Tag List */
+        .tag-list-container {
+            padding: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .tag-list-container h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .tag-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag-item a {
+            display: block;
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 14px;
+        }
+        .tag-item a:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .tag-item a.active {
+            background-color: #e67e22;
+        }
+
+        /* NEW: Description Box */
+        .description-box {
+            padding: 15px 20px;
+            background-color: #e8f4fd; /* A light, friendly blue */
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .description-box h3 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+        }
+        #tag-description {
+            margin: 0;
+            font-size: 16px;
+            color: #34495e;
+            line-height: 1.5;
+        }
+
+        /* Bottom Section: Practice Area */
+        .practice-area {
+            display: flex;
+            min-height: 450px;
+        }
+        .practice-box {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .practice-box h3 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        /* Left Pane: Sample Output */
+        .sample-output {
+            background-color: #ecf0f1;
+            border-right: 1px solid #e0e0e0;
+        }
+        #output-display {
+            border: 1px dashed #bdc3c7;
+            padding: 15px;
+            min-height: 300px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        
+        /* Right Pane: User Input */
+        .user-input {
+            display: flex;
+            flex-direction: column;
+        }
+        #html-input {
+            flex-grow: 1;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 16px;
+            resize: vertical;
+        }
+        #validate-btn {
+            margin-top: 15px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #validate-btn:hover {
+            background-color: #27ae60;
+        }
+        #initial-message {
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="tag-list-container">
+            <h2>STEP 1: Select a Concept/Tag to Learn 👇</h2>
+            <ul id="tag-list" class="tag-list">
+                </ul>
+        </div>
+
+        <div class="description-box">
+            <h3>💡 Description</h3>
+            <p id="tag-description">Select a concept from the list above to see its description here.</p>
+        </div>
+
+        <div class="practice-area">
+            <div class="practice-box sample-output">
+                <h3>Sample Output Preview</h3>
+                <div id="output-display">
+                    <p id="initial-message">The rendered HTML example will appear here.</p>
+                </div>
+            </div>
+            <div class="practice-box user-input">
+                <h3>STEP 2: Try Writing the HTML Yourself</h3>
+                <textarea id="html-input" placeholder="Enter your HTML code here..."></textarea>
+                <button id="validate-btn">STEP 3: Validate Code ✅</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Data: Added a 'description' property to each object ---
+        const tagData = [
+            {
+                tag: 'headings',
+                displayName: 'Headings: <h1> ~ <h6>',
+                description: 'Used for titles and subtitles to structure a document. <h1> is the most important, and <h6> is the least.',
+                correctCode: '<h1>Main Heading(h1)</h1>\n<h2>Subheading(h2)</h2>\n<h6>Smallest Heading(h6)</h6>'
+            },
+            {
+                tag: 'p_br_nbsp',
+                displayName: 'Paragraph/Break/Space',
+                description: 'The <p> tag defines a paragraph. <br> forces a line break within text. &nbsp; adds an extra, non-breaking space.',
+                correctCode: '<p>This is a paragraph.<br>This is a new line.</p>\n<p>Extra&nbsp;&nbsp;Spaces</p>'
+            },
+            {
+                tag: 'img',
+                displayName: '<img>',
+                description: 'Insert an image. You must specify the image path with the src attribute. Example 👉 src : ./cat.jpg, alt: cute cat',
+                correctCode: '<img src="./cat.jpg" alt="cute cat">'
+            },
+            {
+                tag: 'strong',
+                displayName: 'Emphasis: <strong>',
+                description: 'The <strong> tag indicates that its contents have strong importance or urgency, which browsers typically render as bold text.',
+                correctCode: '<strong>This text is very important</strong>'
+            },
+            {
+                tag: 'a_basic',
+                displayName: 'Links: <a>',
+                description: 'The <a> (anchor) tag creates a hyperlink to other web pages. The `href` attribute specifies the destination URL. Example 👉 title: Go!',
+                correctCode: '<a href="https://www.google.com" title="Go!">Go to Google</a>'
+            },
+            {
+                tag: 'a_target',
+                displayName: 'Links: target attribute',
+                description: 'The `target="_blank"` attribute on an <a> tag tells the browser to open the link in a new tab.',
+                correctCode: '<a href="https://www.google.com" target="_blank">Open in new tab</a>'
+            },
+            {
+                tag: 'a_special',
+                displayName: 'Links: tel, mailto',
+                description: 'Using `mailto:` or `tel:` in the `href` attribute creates links that can open an email client or initiate a phone call. Example 👉Email: contact@example.com, phone number: 123-456-7890',
+                correctCode: '<a href="mailto:contact@example.com">Send Email</a>\n<a href="tel:123-456-7890">Call Us</a>'
+            },
+            // {
+            //     tag: 'path',
+            //     displayName: 'Concept: Paths',
+            //     description: 'Absolute paths use a full URL. Relative paths point to a file from the current page\'s location (`./` means the current folder).',
+            //     correctCode: '\n<a href="https://www.google.com/images/logo.png">Absolute Path Link</a>\n\n\n<a href="./pages/about.html">Relative Path Link</a>'
+            // },
+            {
+                tag: 'div_span',
+                displayName: 'Usage: <div> vs <span>',
+                description: '<div> is a "block-level" element used to group larger sections of content. <span> is an "inline" element used to style a small part of text within a line.',
+                correctCode: '<div>A div tag</div>\n  <div>takes up the full width (block).</div> \n  <span>A span tag </span>\n  <span>only takes up as much space as its content (inline).</span>'
+            },
+            {
+                tag: 'ul',
+                displayName: 'Lists: <ul> (Unordered)',
+                description: 'The <ul> tag creates an unordered list (bullet points). Each list item starts with the <li> tag.',
+                correctCode: '<ul>\n  <li>Apple</li>\n  <li>Banana</li>\n  <li>Strawberry</li>\n</ul>'
+            },
+            {
+                tag: 'ol',
+                displayName: 'Lists: <ol> (Ordered)',
+                description: 'The <ol> tag creates an ordered list (numbered). Each list item also starts with the <li> tag.',
+                correctCode: '<ol>\n  <li>First, open the door.</li>\n  <li>Second, close the door.</li>\n</ol>'
+            },
+            {
+                tag: 'table',
+                displayName: 'Tables: <table>',
+                description: 'Used to display data in rows and columns. <table> is the container, <tr> defines a row, <th> is a header cell, and <td> is a data cell.',
+                correctCode: '<table>\n  <tr>\n    <th>Name</th>\n    <th>Contact</th>\n  </tr>\n  <tr>\n    <td>John Doe</td>\n    <td>555-1234</td>\n  </tr>\n</table>'
+            },
+            {
+                tag: 'input_types',
+                displayName: 'Inputs: <input> types',
+                description: 'The <input> tag is used to create interactive controls for web-based forms. The `type` attribute can be `text`, `email`, `number`, and many others.',
+                correctCode: '<input type="text" placeholder="Enter your name">\n<input type="email" placeholder="Your email address">\n<input type="number" placeholder="Your age">'
+            },
+            {
+                tag: 'label',
+                displayName: 'Labels: <label> connection',
+                description: 'A <label> provides a caption for an <input> element. The `for` attribute of the label must match the `id` of the input to bind them. Example 👉 tag id: user-id',
+                correctCode: '<label for="user-id">User ID:</label>\n<input type="text" id="user-id">'
+            },
+            {
+                tag: 'comment',
+                displayName: 'Comments: ',
+                description: 'HTML comments are not displayed in the browser, but they can help document your source code for yourself and other developers. Example 👉 <!-- invisible -->',
+                correctCode: '<!-- invisible -->\n'
+            }
+        ];
+
+        // --- DOM Element Selection ---
+        const tagListEl = document.getElementById('tag-list');
+        const tagDescriptionEl = document.getElementById('tag-description'); // NEW
+        const outputDisplayEl = document.getElementById('output-display');
+        const htmlInputEl = document.getElementById('html-input');
+        const validateBtn = document.getElementById('validate-btn');
+        const initialMessageEl = document.getElementById('initial-message');
+
+        let currentTagData = null; 
+
+        // 1. Dynamically create the tag selection list
+        function createTagList() {
+            tagData.forEach(data => {
+                const listItem = document.createElement('li');
+                listItem.className = 'tag-item';
+                
+                const link = document.createElement('a');
+                link.href = '#';
+                link.textContent = data.displayName;
+                link.dataset.tag = data.tag;
+
+                listItem.appendChild(link);
+                tagListEl.appendChild(listItem);
+            });
+        }
+
+        // 2. Handle clicks on the tag selection list
+        tagListEl.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'A') return;
+            e.preventDefault();
+
+            const currentActive = tagListEl.querySelector('.active');
+            if (currentActive) {
+                currentActive.classList.remove('active');
+            }
+            e.target.classList.add('active');
+
+            if(initialMessageEl) {
+                initialMessageEl.style.display = 'none';
+            }
+
+            const selectedTag = e.target.dataset.tag;
+            currentTagData = tagData.find(data => data.tag === selectedTag);
+            updatePracticeArea();
+        });
+
+        // 3. Update the description and practice area based on the selected tag
+        function updatePracticeArea() {
+            if (!currentTagData) return;
+            
+            // NEW: Update the description text
+            tagDescriptionEl.textContent = currentTagData.description;
+
+            // Display the rendered HTML of the correct code
+            outputDisplayEl.innerHTML = currentTagData.correctCode;
+
+            // Clear the input textarea and focus it
+            htmlInputEl.value = '';
+            htmlInputEl.focus();
+        }
+
+        // 4. Validate the user's input
+        validateBtn.addEventListener('click', function() {
+            if (!currentTagData) {
+                alert('Please select an item to practice from the list above first!');
+                return;
+            }
+
+            const userInput = htmlInputEl.value.trim().replace(/\s+/g, ' ');
+            const correctCode = currentTagData.correctCode.trim().replace(/\s+/g, ' ');
+
+            if (userInput === correctCode) {
+                alert('Correct! Great job! 👍');
+            } else {
+                alert('Not quite right. 😥 Review the correct answer below and try again.\n\n[Correct Answer]\n' + currentTagData.correctCode);
+            }
+        });
+
+        // --- Initial Setup on Page Load ---
+        window.onload = function() {
+            createTagList();
+        };
+
+    </script>
+</body>
+</html>
