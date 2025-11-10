@@ -13,8 +13,7 @@
             background-color: #f9f9f9;
         }
 
-        /* --- [NEW] Main Container --- */
-        /* This new container will wrap everything, just like on the HTML page */
+        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -24,7 +23,7 @@
             overflow: hidden;
         }
 
-        /* --- [NEW] Header for Back Link --- */
+        /* Header for Back Link */
         .container-header {
             padding: 20px 20px 10px 20px;
         }
@@ -45,9 +44,7 @@
             flex-wrap: wrap; /* Wrap on small screens */
             justify-content: center;
             background-color: #333;
-            padding: 10px 20px; /* Added horizontal padding */
-            /* [REMOVED] box-shadow: 0 2px 5px rgba(0,0,0,0.1); */ 
-            /* Shadow is now on the main .container */
+            padding: 10px 20px; 
         }
         #menu button {
             background-color: #4CAF50; /* Green */
@@ -67,22 +64,21 @@
         /* Main Content Container (Left/Right Split) */
         #container {
             display: flex;
-            flex-wrap: wrap; /* Stack vertically on small screens */
-            /* [CHANGED] margin: 20px; -> padding: 20px; */
+            flex-wrap: wrap; 
             padding: 20px; 
-            gap: 20px; /* Gap between panels */
+            gap: 20px; 
         }
 
         /* Common Panel Styles */
         .panel {
-            flex: 1; /* 1:1 ratio */
-            min-width: 300px; /* Minimum width */
+            flex: 1; 
+            min-width: 300px; 
             background-color: #ffffff;
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             padding: 20px;
-            box-sizing: border-box; /* Include padding in width */
+            box-sizing: border-box; 
         }
         .panel h2 {
             margin-top: 0;
@@ -97,11 +93,12 @@
             padding: 15px;
             border-radius: 5px;
             border: 1px solid #e0e0e0;
-            overflow-x: auto; /* Scroll if code is long */
+            overflow-x: auto; 
+            white-space: pre-wrap; /* Preserve line breaks in examples */
         }
         #example-question {
             font-weight: bold;
-            color: #0056b3; /* Blue color */
+            color: #0056b3; 
             margin-top: 20px;
         }
 
@@ -109,11 +106,11 @@
         #user-input {
             width: 100%;
             height: 150px;
-            box-sizing: border-box; /* Include padding/border */
+            box-sizing: border-box; 
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
-            font-family: Consolas, "Courier New", monospace; /* Coding font */
+            font-family: Consolas, "Courier New", monospace; 
             font-size: 14px;
         }
         #check-btn {
@@ -139,20 +136,20 @@
             font-weight: bold;
             padding: 10px;
             border-radius: 5px;
+            white-space: pre-wrap; /* Allow line breaks in answer */
         }
         .correct {
-            color: #155724; /* Green text */
+            color: #155724; 
             background-color: #d4edda;
             border: 1px solid #c3e6cb;
         }
         .incorrect {
-            color: #721c24; /* Red text */
+            color: #721c24; 
             background-color: #f8d7da;
             border: 1px solid #f5c6cb;
-            white-space: pre-wrap; /* Allow line breaks in answer */
         }
 
-        /* --- [NEW] Button Styles (Copied from HTML page) --- */
+        /* Button Styles */
         .btn {
             display: inline-block;
             padding: 15px 35px;
@@ -172,7 +169,7 @@
             transform: translateY(-3px);
         }
 
-        /* --- [NEW] Footer for Practice Button --- */
+        /* Footer for Practice Button */
         .container-footer {
             padding: 20px;
             text-align: center;
@@ -182,18 +179,14 @@
 </head>
 <body>
 
-    <!-- [NEW] Main .container wrapper -->
     <div class="container">
 
-        <!-- [NEW] Header for Back Link -->
         <div class="container-header">
             <a href="index.html" class="back-link">← Back to Main</a>
         </div>
 
-        <!-- [MOVED] Menu is now inside the .container -->
         <nav id="menu"></nav>
 
-        <!-- [MOVED] Main content is now inside the .container -->
         <main id="container">
             <div id="example-panel" class="panel">
                 <h2 id="example-title"></h2>
@@ -209,22 +202,14 @@
             </div>
         </main>
 
-        <!-- [NEW] Footer for Live Practice Button -->
         <div class="container-footer">
             <a href="https://www.online-python.com/" class="btn btn-external" target="_blank">
                 🌐 Live Python Practice Site
             </a>
         </div>
 
-    </div> <!-- End of .container -->
-
-
-    <!-- [REMOVED] Links are now inside the .container -->
-    <!-- <a href="index.html" class="back-link">← Back to Main</a> -->
-    <!-- <a href="https.www.online-python.com/" ... </a> -->
-
-
-    <script>
+    </div> <script>
+    // --- [UPDATED] Added new topics for Lists, Tuples, Dictionaries, and If-statements ---
     const topicsData = [
         {
             id: 'printInput',
@@ -254,31 +239,12 @@ print(10 / 5)  # Division (Result: 2.0)</code></pre>
             answer: 'print(10 + 5)'
         },
         {
-            id: 'order',
-            name: 'Control Order ( )',
-            example: `
-                <p>You can use parentheses <b>( )</b> to control the order of operations. Operations inside parentheses are performed first.</p>
-                <pre><code># Without parentheses (multiplication first)
-print(2 + 3 * 4)  # Result: 14
-
-# With parentheses (addition first)
-print((2 + 3) * 4)  # Result: 20</code></pre>
-            `,
-            question: 'Write the code to print the result of (10 + 20) multiplied by 3.',
-            answer: 'print((10 + 20) * 3)'
-        },
-        {
             id: 'variable',
             name: 'Variable',
             example: `
                 <p>A variable is a space to store a value. Use the <b>=</b> sign to assign a value.</p>
-                <pre><code># Store 30 in a variable named age
-age = 30
-
-# Store the string "Alice" in a variable named name
+                <pre><code>age = 30
 name = "Alice"
-
-# Print the variable values
 print(age)
 print(name)</code></pre>
             `,
@@ -289,11 +255,12 @@ print(name)</code></pre>
             id: 'types',
             name: 'Data Types',
             example: `
-                <p>There are several types of data.</p>
+                <p>There are several types of data. Lists can hold multiple types!</p>
                 <pre><code>x = 10        # Integer (int)
 y = 3.14      # Float (float)
 z = "Python"  # String (str)
-a = True      # Boolean (bool)</code></pre>
+a = True      # Boolean (bool)
+b = [1, "hi", True] # List (can hold different types)</code></pre>
             `,
             question: 'Write the code to create a variable named subject with the string value "Python".',
             answer: 'subject = "Python"'
@@ -303,49 +270,161 @@ a = True      # Boolean (bool)</code></pre>
             name: 'type(), int(), str()',
             example: `
                 <p>You can check or convert data types.</p>
-                <pre><code># type(): Check type
-print(type(10))   # &lt;class 'int'&gt;
-print(type("10"))   # &lt;class 'str'&gt;
-
-# int(): Convert to integer
+                <pre><code>print(type(10))   # &lt;class 'int'&gt;
 num_str = "123"
 num_int = int(num_str) # 123 (as a number)
-
-# str(): Convert to string
-num = 123
-str_num = str(num)     # "123" (as a string)</code></pre>
+str_num = str(123)   # "123" (as a string)</code></pre>
             `,
             question: 'Write the code to convert the string "500" to the number 500 and store it in a variable named num.',
             answer: 'num = int("500")'
         },
         {
-            id: 'string',
+            id: 'stringSlice',
             name: 'String Index & Slice',
             example: `
-                <p>A string is an ordered sequence of characters.</p>
-                <p><b>Indexing</b>: Gets a single character from a specific position. (Starts from 0)</p>
+                <p><b>Indexing</b>: Gets a single character. (Starts from 0)</p>
                 <pre><code>s = "Python"
 print(s[0])   # 'P'
-print(s[2])   # 't'</code></pre>
-                <p><b>-1</b> means the last letter, <b>-2</b> means the second to last letter.</p>
+print(s[-1])  # 'n' (Last character)</code></pre>
+                <p><b>Slicing</b>: Extracts a range. <b>[start:end]</b> (end is not included)</p>
                 <pre><code>s = "Python"
-print(s[-1])  # 'n'
-print(s[-2])  # 'o'
-print(s[-6])  # 'P'
-</code></pre>
-                <p><b>Slicing</b>: Extracts a range of characters. <b>[start:end]</b> (The end index is not included)</p>
-                <pre><code>s = "Python"
-print(s[1:4]) # 'yth' (from index 1 up to *before* 4)
-print(s[:2])  # 'Py' (from the beginning up to *before* 2)
-print(s[3:])  # 'hon' (from index 3 to the end)</code></pre>
+print(s[1:4]) # 'yth' (from index 1 up to *before* 4)</code></pre>
             `,
             question: 'Given the variable text = "Hello", write the code to slice and print only "ell".',
             answer: 'print(text[1:4])'
+        },
+        {
+            id: 'listIntro',
+            name: 'List Basics',
+            example: `
+                <p>A <b>List</b> is a collection of items, stored in order. Uses square brackets <b>[ ]</b>.</p>
+                <pre><code># An empty list
+empty_list = []
+
+# A list of numbers
+numbers = [1, 2, 3, 4]
+
+# A list of strings
+fruits = ["apple", "banana", "cherry"]</code></pre>
+            `,
+            question: 'Create a list named fruits containing "apple" and "banana".',
+            answer: 'fruits = ["apple", "banana"]'
+        },
+        {
+            id: 'listIndexModify',
+            name: 'List Index & Modify',
+            example: `
+                <p>Lists use indexing and slicing, just like strings.</p>
+                <pre><code>fruits = ["apple", "banana", "cherry"]
+print(fruits[0])    # 'apple'
+print(fruits[1:3])  # ['banana', 'cherry']</code></pre>
+                <p>You can change a value at a specific index.</p>
+                <pre><code>fruits[0] = "orange"
+# fruits is now ["orange", "banana", "cherry"]</code></pre>
+            `,
+            question: 'Given nums = [1, 2, 9], write code to change the 9 to a 3.',
+            answer: 'nums[2] = 3'
+        },
+        {
+            id: 'listMethods',
+            name: 'List Methods (len, .append, .remove)',
+            example: `
+                <p><b>len()</b>: Gets the number of items in the list.</p>
+                <pre><code>print(len(["a", "b", "c"]))  # Result: 3</code></pre>
+                <p><b>.append()</b>: Adds a new item to the <b>end</b> of the list.</p>
+                <pre><code>colors = ["red"]
+colors.append("blue")
+# colors is now ["red", "blue"]</code></pre>
+                <p><b>.remove()</b>: Deletes the <b>first</b> item with a specific value.</p>
+                <pre><code>colors = ["red", "blue", "red"]
+colors.remove("red")
+# colors is now ["blue", "red"]</code></pre>
+            `,
+            question: 'Given colors = ["red"], write code to add "blue" to the end of the list.',
+            answer: 'colors.append("blue")'
+        },
+        {
+            id: 'tupleIntro',
+            name: 'Tuple (Immutable)',
+            example: `
+                <p>A <b>Tuple</b> is just like a list, but it <b>cannot be changed</b> after it is created. Uses parentheses <b>( )</b>.</p>
+                <pre><code># A tuple
+point = (10, 20)
+print(point[0])  # 10
+
+# This will cause an ERROR:
+# point[0] = 5 </code></pre>
+            `,
+            question: 'Create a tuple named point with the values 10 and 20.',
+            answer: 'point = (10, 20)'
+        },
+        {
+            id: 'dictIntro',
+            name: 'Dictionary (Key-Value)',
+            example: `
+                <p>A <b>Dictionary</b> stores items as <b>key-value pairs</b> (like a list with labels). Uses curly braces <b>{ }</b>.</p>
+                <pre><code># A dictionary
+student = {"name": "Alice", "age": 20}
+
+# Access a value using its key
+print(student["name"])  # 'Alice'
+
+# Add a new key-value pair
+student["grade"] = "A"</code></pre>
+            `,
+            question: 'Create a dictionary named car with a key "color" and value "red".',
+            answer: 'car = {"color": "red"}'
+        },
+        {
+            id: 'ifStatement',
+            name: 'if Statement',
+            example: `
+                <p>The <b>if</b> statement runs code <b>only if</b> a condition is True. Code must be indented (4 spaces or 1 tab).</p>
+                <pre><code>x = 10
+if x > 5:
+    print("x is greater than 5")
+    
+# This line is not indented, so it runs always
+print("Done")</code></pre>
+            `,
+            question: 'Given x = 20, write an if statement to print "High" if x > 10.',
+            answer: 'if x > 10:\n    print("High")'
+        },
+        {
+            id: 'ifElse',
+            name: 'if-else Statement',
+            example: `
+                <p><b>else</b> runs code if the <b>if</b> condition is False.</p>
+                <pre><code>temp = 15
+if temp > 20:
+    print("It is hot")
+else:
+    print("It is not hot")</code></pre>
+            `,
+            question: 'Given y = 5, write an if-else statement to print "High" if y > 10, and "Low" otherwise.',
+            answer: 'if y > 10:\n    print("High")\nelse:\n    print("Low")'
+        },
+        {
+            id: 'elif',
+            name: 'if-elif-else',
+            example: `
+                <p><b>elif</b> (else if) checks multiple conditions in order.</p>
+                <pre><code>score = 85
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+else:
+    print("C")
+# This will print "B"</code></pre>
+            `,
+            question: 'Given score = 75, print "A" if score > 90, "B" if score > 80, or "C" if score > 70.',
+            answer: 'if score > 90:\n    print("A")\nelif score > 80:\n    print("B")\nelif score > 70:\n    print("C")'
         }
     ];
 
     // --- Global Variables & DOM Elements ---
-    let currentAnswer = ''; // The correct answer for the currently selected topic
+    let currentAnswer = ''; 
     const menu = document.getElementById('menu');
     const exampleTitle = document.getElementById('example-title');
     const exampleDesc = document.getElementById('example-description');
@@ -356,55 +435,49 @@ print(s[3:])  # 'hon' (from index 3 to the end)</code></pre>
 
     // --- Function Definitions ---
 
-    /**
-     * 1. Function to load topic content (example, question) into the view
-     */
     function loadTopic(topicId) {
-        // 1. Find the corresponding data in topicsData using topicId
         const topic = topicsData.find(t => t.id === topicId);
         if (!topic) return;
 
-        // 2. Populate the left panel (example, question)
         exampleTitle.innerText = topic.name;
         exampleDesc.innerHTML = topic.example;
         exampleQ.innerText = 'Problem: ' + topic.question;
-
-        // 3. Store the current answer in the global variable
         currentAnswer = topic.answer;
-
-        // 4. Reset the right panel (input, feedback)
+        
         userInput.value = '';
         feedback.innerText = '';
-        feedback.className = ''; // Remove feedback styles (correct, incorrect)
+        feedback.className = '';
     }
 
-    /**
-     * 2. Function to run when the 'Check Answer' button is clicked
-     */
+    // --- [UPDATED] Check Answer function ---
+    // Now normalizes whitespace (spaces, tabs, newlines)
+    // This allows multi-line answers (like if-statements) to be validated correctly.
     function checkAnswer() {
-        // 1. Get the user's input (trimmed)
-        const userText = userInput.value.trim();
+        if (currentAnswer === '') {
+             alert('Please select a topic from the menu first.');
+             return;
+        }
 
-        // 2. Compare with the correct answer
-        if (userText === currentAnswer) {
-            // If correct
+        // 1. Normalize user's input: trim and replace all whitespace (tabs, newlines, spaces) with a single space.
+        const userText = userInput.value.trim().replace(/\s+/g, ' ');
+
+        // 2. Normalize the correct answer in the same way.
+        const correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
+
+        // 3. Compare the normalized strings
+        if (userText === correctAnswer) {
             feedback.innerText = 'Correct! 👏';
-            feedback.className = 'correct'; // Apply green style
+            feedback.className = 'correct'; 
         } else {
-            // If incorrect
             feedback.innerText = `Incorrect. 😥\nThe correct answer is:\n\n${currentAnswer}`;
-            feedback.className = 'incorrect'; // Apply red style
+            feedback.className = 'incorrect'; 
         }
     }
 
-    /**
-     * 3. (Initialization) Function to create the top menu buttons
-     */
     function createMenuButtons() {
         topicsData.forEach(topic => {
             const button = document.createElement('button');
             button.innerText = topic.name;
-            // Load the topic when the button is clicked
             button.onclick = () => loadTopic(topic.id);
             menu.appendChild(button);
         });
@@ -412,13 +485,9 @@ print(s[3:])  # 'hon' (from index 3 to the end)</code></pre>
 
     // --- Script Execution (Initialization) ---
     
-    // 1. Create menu buttons
     createMenuButtons();
-
-    // 2. Attach click event to the 'Check Answer' button
     checkBtn.onclick = checkAnswer;
 
-    // 3. Auto-load the first topic when the page loads
     if (topicsData.length > 0) {
         loadTopic(topicsData[0].id);
     }

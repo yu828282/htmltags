@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Basics Review 🎨</title>
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Header for Back Link */
+        .container-header {
+            padding: 20px 20px 10px 20px;
+        }
+        .back-link {
+            font-size: 16px;
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+        
+        /* Top Menu Bar */
+        #menu {
+            display: flex;
+            flex-wrap: wrap; /* Wrap on small screens */
+            justify-content: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+        #menu button {
+            background-color: #007BFF; /* CSS Blue */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        #menu button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Main Content Container (Left/Right Split) */
+        #content-area { /* Renamed from #container to avoid ID conflict */
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px; 
+            gap: 20px;
+        }
+
+        /* Common Panel Styles */
+        .panel {
+            flex: 1;
+            min-width: 300px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .panel h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Left Example Panel */
+        #example-panel pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        #example-question {
+            font-weight: bold;
+            color: #0056b3;
+            margin-top: 20px;
+        }
+        /* Style for <code> tags inside <pre> */
+        #example-panel pre code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        /* Right Input Panel */
+        #user-input {
+            width: 100%;
+            height: 150px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 14px;
+        }
+        #check-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF; /* Blue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        #check-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Feedback Message */
+        #feedback {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap; /* Allow line breaks in answer */
+        }
+        .correct {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .incorrect {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-external {
+            background-color: #2ecc71; /* Green */
+        }
+        .btn-external:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+        }
+
+        /* Footer for Practice Button */
+        .container-footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="container-header">
+            <a href="index.html" class="back-link">← Back to Main</a>
+        </div>
+
+        <nav id="menu"></nav>
+
+        <main id="content-area">
+            <div id="example-panel" class="panel">
+                <h2 id="example-title"></h2>
+                <div id="example-description"></div>
+                <p id="example-question"></p>
+            </div>
+            <div id="input-panel" class="panel">
+                <h2>Input Panel</h2>
+                <p>Read the problem on the left and enter your CSS code.</p>
+                <textarea id="user-input" placeholder="Enter your CSS rule here..."></textarea>
+                <button id="check-btn">Check Answer</button>
+                <p id="feedback"></p>
+            </div>
+        </main>
+
+        <div class="container-footer">
+            <a href="https://html-css-js.com/" class="btn btn-external" target="_blank">
+                🌐 Live Web Practice Site
+            </a>
+        </div>
+
+    </div> <script>
+    // --- CSS Practice Data ---
+    const topicsData = [
+        {
+            id: 'intro',
+            name: 'What is CSS?',
+            example: `
+                <p>CSS stands for <b>Cascading Style Sheets</b>.</p>
+                <p>It is a language that controls the design and layout of a website, separating style from the HTML structure.</p>
+            `,
+            question: 'What language is used to control the design of a website?',
+            answer: 'CSS'
+        },
+        {
+            id: 'basicProps',
+            name: 'Basic Properties',
+            example: `
+                <p>These are some of the most common properties:</p>
+                <pre><code>/* Changes the text color */
+color: red;
+
+/* Changes the size of the text */
+font-size: 16px;
+
+/* Adds a background color */
+background-color: #eeeeee;</code></pre>
+            `,
+            question: 'Write the CSS property to change the text color to green.',
+            answer: 'color: green;'
+        },
+        {
+            id: 'selectors',
+            name: 'Selectors (Tag, Class, Id)',
+            example: `
+                <p>Selectors decide which HTML element will get the style.</p>
+                <pre><code>/* Tag Selector: Applies to all <p> tags */
+p {
+  color: blue;
+}
+
+/* Class Selector: Applies to elements with class="error" */
+.error {
+  color: red;
+}
+
+/* Id Selector: Applies to the one element with id="title" */
+#title {
+  font-size: 24px;
+}</code></pre>
+            `,
+            question: 'Write a CSS rule to make all <p> tags have red text.',
+            answer: 'p { color: red; }'
+        },
+        {
+            id: 'descendant',
+            name: 'Descendant Selector',
+            example: `
+                <p>Applies styles to child elements inside a specific element. (Use a space)</p>
+                <pre><code>/* Styles only the <strong> tag *inside* an element with class .content */
+.content strong {
+  font-weight: bold;
+}</code></pre>
+            `,
+            question: 'Write a CSS rule to make <a> tags inside a <div> with id="nav" blue.',
+            answer: '#nav a { color: blue; }'
+        },
+        {
+            id: 'comment',
+            name: 'Comment',
+            example: `
+                <p>Used to add explanations in the code (Ctrl + /).</p>
+                <pre><code>/* This is a single-line comment */
+
+/* This is a 
+  multi-line comment 
+*/</code></pre>
+            `,
+            question: 'Write a CSS comment that says "Main styles".',
+            answer: '/* Main styles */'
+        },
+        {
+            id: 'colors',
+            name: 'Color Representation',
+            example: `
+                <p>Colors can be represented in several ways:</p>
+                <pre><code>/* Color Name */
+color: red;
+
+/* Hex Code (can be shortened: #ff0000 -> #f00) */
+color: #ff0000;
+
+/* RGB */
+color: rgb(255, 0, 0);</code></pre>
+            `,
+            question: 'Write a CSS rule to set the color to black using a hex code.',
+            answer: 'color: #000;'
+        },
+        {
+            id: 'sizing',
+            name: 'Width & Height',
+            example: `
+                <p>Can be defined in pixels (px) or as a percentage (%) of the parent element.</p>
+                <pre><code>div {
+  width: 50%;
+  height: 700px;
+}</code></pre>
+            `,
+            question: 'Write a CSS rule to set the width of an element to 300 pixels.',
+            answer: 'width: 300px;'
+        },
+        {
+            id: 'border',
+            name: 'Border & Border-Radius',
+            example: `
+                <p><b>Border</b>: A line that surrounds the content (thickness, style, color).</p>
+                <pre><code>border: 1px solid #000;</code></pre>
+                <p><b>Border-Radius</b>: Defines the roundness of the corners.</p>
+                <pre><code>border-radius: 0;     /* Square */
+border-radius: 20px;  /* Slightly rounded */
+border-radius: 50%;   /* Perfect circle */</code></pre>
+            `,
+            question: 'Write a CSS rule to create a 2px dashed red border.',
+            answer: 'border: 2px dashed red;'
+        },
+        {
+            id: 'boxModel',
+            name: 'Margin & Padding',
+            example: `
+                <p><b>Margin</b>: Controls the space <b>OUTSIDE</b> an element.</p>
+                <p><b>Padding</b>: Controls the space <b>INSIDE</b> an element.</p>
+                <pre><code>/* Shorthand: top, right, bottom, left */
+margin: 10px 20px 10px 20px;
+
+/* Shortened: top-bottom, left-right */
+padding: 15px 30px;</code></pre>
+            `,
+            question: 'Write a CSS rule to add 25 pixels of padding to all sides of an element.',
+            answer: 'padding: 25px;'
+        },
+        {
+            id: 'boxShadow',
+            name: 'Box-Shadow',
+            example: `
+                <p>Adds a shadow to an element. Syntax: [X offset] [Y offset] [Blur] [Color]</p>
+                <pre><code>box-shadow: 5px 5px 2px gray;</code></pre>
+            `,
+            question: 'Write a CSS rule to add a shadow with 5px x-offset, 10px y-offset, and blue color.',
+            answer: 'box-shadow: 5px 10px blue;'
+        },
+        {
+            id: 'hover',
+            name: 'Pseudo-class: :hover',
+            example: `
+                <p>The <b>:hover</b> pseudo-class defines the style when you move your mouse over an element.</p>
+                <pre><code>button {
+  background-color: blue;
+}
+
+button:hover {
+  background-color: darkblue;
+}</code></pre>
+            `,
+            question: 'Write a CSS rule to change the color of <a> tags to red when hovered.',
+            answer: 'a:hover { color: red; }'
+        },
+        {
+            id: 'textAlign',
+            name: 'Text Alignment',
+            example: `
+                <p>Controls the horizontal alignment of text.</p>
+                <pre><code>text-align: left;    /* Default */
+text-align: center;  /* Center */
+text-align: right;   /* Right */</code></pre>
+            `,
+            question: 'Write a CSS rule to center-align text.',
+            answer: 'text-align: center;'
+        },
+        {
+            id: 'boxAlign',
+            name: 'Box Alignment',
+            example: `
+                <p><b>Horizontal Centering (Block)</b>: Use <code>margin: 0 auto;</code> to center a block element horizontally.</p>
+                <pre><code>.box {
+  width: 80%;
+  margin: 0 auto;
+}</code></pre>
+                <p><b>Perfect Centering (Flexbox)</b>: Use flexbox on the <b>parent</b> container.</p>
+                <pre><code>.parent {
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;    /* Vertical center */
+}</code></pre>
+            `,
+            question: 'Write the CSS rule to horizontally center a block element.',
+            answer: 'margin: 0 auto;'
+        },
+        {
+            id: 'display',
+            name: 'Inline & Block',
+            example: `
+                <p><b>Block elements</b>: Take up the full width, start on a new line. (e.g., <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>)</p>
+                <p><b>Inline elements</b>: Only take up as much width as needed, do not start on a new line. (e.g., <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>)</p>
+                <pre><code>span {
+  display: block; /* Makes an inline span act like a block */
+}</code></pre>
+            `,
+            question: 'Write the CSS rule to make an element an inline element.',
+            answer: 'display: inline;'
+        }
+    ];
+
+    // --- Global Variables & DOM Elements ---
+    let currentAnswer = '';
+    const menu = document.getElementById('menu');
+    const exampleTitle = document.getElementById('example-title');
+    const exampleDesc = document.getElementById('example-description');
+    const exampleQ = document.getElementById('example-question');
+    const userInput = document.getElementById('user-input');
+    const checkBtn = document.getElementById('check-btn');
+    const feedback = document.getElementById('feedback');
+
+    // --- Function Definitions ---
+
+    /**
+     * 1. Load topic content (example, question) into the view
+     */
+    function loadTopic(topicId) {
+        const topic = topicsData.find(t => t.id === topicId);
+        if (!topic) return;
+
+        exampleTitle.innerText = topic.name;
+        exampleDesc.innerHTML = topic.example;
+        exampleQ.innerText = 'Problem: ' + topic.question;
+        currentAnswer = topic.answer;
+        
+        userInput.value = '';
+        feedback.innerText = '';
+        feedback.className = '';
+    }
+
+    /**
+     * 2. Check the user's answer
+     */
+    function checkAnswer() {
+        if (currentAnswer === '') {
+            alert('Please select a topic from the menu first.');
+            return;
+        }
+
+        // Normalize whitespace for flexible CSS comparison
+        // "p { color: red; }" will match "p {\n  color: red;\n}"
+        const userText = userInput.value.trim().replace(/\s+/g, ' ');
+        const correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
+
+        if (userText === correctAnswer) {
+            feedback.innerText = 'Correct! 👏';
+            feedback.className = 'correct';
+        } else {
+            feedback.innerText = `Incorrect. 😥\nThe correct answer is:\n\n${currentAnswer}`;
+            feedback.className = 'incorrect';
+        }
+    }
+
+    /**
+     * 3. (Initialization) Create the top menu buttons
+     */
+    function createMenuButtons() {
+        topicsData.forEach(topic => {
+            const button = document.createElement('button');
+            button.innerText = topic.name;
+            button.onclick = () => loadTopic(topic.id);
+            menu.appendChild(button);
+        });
+    }
+
+    // --- Script Execution (Initialization) ---
+    
+    createMenuButtons();
+    checkBtn.onclick = checkAnswer;
+
+    if (topicsData.length > 0) {
+        loadTopic(topicsData[0].id);
+    }
+    </script>
+</body>
+</html>

@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprehensive HTML Tag Practice Pad 🚀</title>
+    <title>HTML Basics Review 📄</title>
     <style>
-        /* Global Styles */
+        /* Basic Styles */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f4f7f6;
-            color: #333;
+            background-color: #f9f9f9;
         }
+
+        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -21,124 +22,137 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-        
-        /* Top Section: Tag List */
-        .tag-list-container {
-            padding: 0 20px 20px 20px; 
-            border-bottom: 2px solid #e0e0e0;
-        }
-        .tag-list-container h2 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-        .tag-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .tag-item a {
-            display: block;
-            padding: 8px 15px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 20px;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.2s;
-            font-size: 14px;
-        }
-        .tag-item a:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-        }
-        .tag-item a.active {
-            background-color: #e67e22;
-        }
 
-        /* NEW: Description Box */
-        .description-box {
-            padding: 15px 20px;
-            background-color: #e8f4fd; /* A light, friendly blue */
-            border-bottom: 2px solid #e0e0e0;
+        /* Header for Back Link */
+        .container-header {
+            padding: 20px 20px 10px 20px;
         }
-        .description-box h3 {
-            margin: 0 0 5px 0;
-            color: #2c3e50;
-        }
-        #tag-description {
-            margin: 0;
+        .back-link {
             font-size: 16px;
-            color: #34495e;
-            line-height: 1.5;
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
         }
-
-        /* Bottom Section: Practice Area */
-        .practice-area {
-            display: flex;
-            min-height: 450px;
-        }
-        .practice-box {
-            width: 50%;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .practice-box h3 {
-            margin-top: 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
+        .back-link:hover {
+            color: #3498db;
+            text-decoration: underline;
         }
         
-        /* Left Pane: Sample Output */
-        .sample-output {
-            background-color: #ecf0f1;
-            border-right: 1px solid #e0e0e0;
+        /* Top Menu Bar */
+        #menu {
+            display: flex;
+            flex-wrap: wrap; /* Wrap on small screens */
+            justify-content: center;
+            background-color: #333;
+            padding: 10px 20px;
         }
-        #output-display {
-            border: 1px dashed #bdc3c7;
-            padding: 15px;
-            min-height: 300px;
-            background-color: #ffffff;
+        #menu button {
+            background-color: #e67e22; /* HTML Orange */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
             border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        #menu button:hover {
+            background-color: #d35400;
+        }
+
+        /* Main Content Container (Left/Right Split) */
+        #content-area {
+            display: flex;
+            flex-wrap: wrap; 
+            padding: 20px; 
+            gap: 20px;
+        }
+
+        /* Common Panel Styles */
+        .panel {
+            flex: 1; 
+            min-width: 300px; 
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 20px;
+            box-sizing: border-box; 
+        }
+        .panel h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Left Example Panel */
+        #example-panel pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            overflow-x: auto; 
             white-space: pre-wrap;
         }
-        
-        /* Right Pane: User Input */
-        .user-input {
-            display: flex;
-            flex-direction: column;
+        #example-panel pre code {
+            font-family: Consolas, "Courier New", monospace;
         }
-        #html-input {
-            flex-grow: 1;
+        #example-question {
+            font-weight: bold;
+            color: #0056b3; 
+            margin-top: 20px;
+        }
+
+        /* Right Input Panel */
+        #user-input {
             width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
+            height: 150px;
+            box-sizing: border-box; 
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 16px;
-            resize: vertical;
+            padding: 10px;
+            font-family: Consolas, "Courier New", monospace; 
+            font-size: 14px;
         }
-        #validate-btn {
-            margin-top: 15px;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: #2ecc71;
+        #check-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF; /* Blue */
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
             transition: background-color 0.3s;
         }
-        #validate-btn:hover {
-            background-color: #27ae60;
+        #check-btn:hover {
+            background-color: #0056b3;
         }
-        #initial-message {
-            color: #7f8c8d;
+
+        /* Feedback Message */
+        #feedback {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap; 
         }
+        .correct {
+            color: #155724; 
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .incorrect {
+            color: #721c24; 
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Button Styles */
         .btn {
             display: inline-block;
             padding: 15px 35px;
@@ -157,242 +171,296 @@
             background-color: #27ae60;
             transform: translateY(-3px);
         }
+
+        /* Footer for Practice Button */
         .container-footer {
             padding: 20px;
             text-align: center;
-            border-top: 2px solid #e0e0e0; /* 상단 콘텐츠와 구분선 */
-        }
-        .container-header {
-            padding: 20px 20px 10px 20px;
-        }
-        .back-link {
-            font-size: 16px;
-            color: #555;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            color: #3498db;
-            text-decoration: underline;
+            border-top: 2px solid #e0e0e0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-
         <div class="container-header">
             <a href="index.html" class="back-link">← Back to Main</a>
         </div>
-
-        <div class="tag-list-container">
-            <h2>STEP 1: Select a Concept/Tag to Learn 👇</h2>
-            <ul id="tag-list" class="tag-list">
-                </ul>
-        </div>
-
-        <div class="description-box">
-            <h3>💡 Description</h3>
-            <p id="tag-description">Select a concept from the list above to see its description here.</p>
-        </div>
-
-        <div class="practice-area">
-            <div class="practice-box sample-output">
-                <h3>Sample Output Preview</h3>
-                <div id="output-display">
-                    <p id="initial-message">The rendered HTML example will appear here.</p>
-                </div>
+        <nav id="menu"></nav>
+        <main id="content-area">
+            <div id="example-panel" class="panel">
+                <h2 id="example-title"></h2>
+                <div id="example-description"></div>
+                <p id="example-question"></p>
             </div>
-            <div class="practice-box user-input">
-                <h3>STEP 2: Try Writing the HTML Yourself</h3>
-                <textarea id="html-input" placeholder="Enter your HTML code here..."></textarea>
-                <button id="validate-btn">STEP 3: Validate Code ✅</button>
+            <div id="input-panel" class="panel">
+                <h2>Input Panel</h2>
+                <p>Read the problem on the left and enter your HTML code.</p>
+                <textarea id="user-input" placeholder="Enter your HTML code here..."></textarea>
+                <button id="check-btn">Check Answer</button>
+                <p id="feedback"></p>
             </div>
-        </div>
-
+        </main>
         <div class="container-footer">
             <a href="https://html-css-js.com/" class="btn btn-external" target="_blank">
                 🌐 Live Web Practice Site
             </a>
         </div>
-
-    </div> <script>
-        // --- Data: Added a 'description' property to each object ---
-        const tagData = [
-            {
-                tag: 'headings',
-                displayName: 'Headings: <h1> ~ <h6>',
-                description: 'Used for titles and subtitles to structure a document. <h1> is the most important, and <h6> is the least.',
-                correctCode: '<h1>Main Heading(h1)</h1>\n<h2>Subheading(h2)</h2>\n<h6>Smallest Heading(h6)</h6>'
-            },
-            {
-                tag: 'p_br_nbsp',
-                displayName: 'Paragraph/Break/Space',
-                description: 'The <p> tag defines a paragraph. <br> forces a line break within text. &nbsp; adds an extra, non-breaking space.',
-                correctCode: '<p>This is a paragraph.<br>This is a new line.</p>\n<p>Extra&nbsp;&nbsp;Spaces</p>'
-            },
-            {
-                tag: 'img',
-                displayName: '<img>',
-                description: 'Insert an image. You must specify the image path with the src attribute. Example 👉 src : cat.jpg, alt: cute cat',
-                correctCode: '<img src="cat.jpg" alt="cute cat">'
-            },
-            {
-                tag: 'strong',
-                displayName: 'Emphasis: <strong>',
-                description: 'The <strong> tag indicates that its contents have strong importance or urgency, which browsers typically render as bold text.',
-                correctCode: '<strong>This text is very important</strong>'
-            },
-            {
-                tag: 'a_basic',
-                displayName: 'Links: <a>',
-                description: 'The <a> (anchor) tag creates a hyperlink to other web pages. The `href` attribute specifies the destination URL. Example 👉 title: Go!',
-                correctCode: '<a href="https://www.google.com" title="Go!">Go to Google</a>'
-            },
-            {
-                tag: 'a_target',
-                displayName: 'Links: target attribute',
-                description: 'The `target="_blank"` attribute on an <a> tag tells the browser to open the link in a new tab.',
-                correctCode: '<a href="https://www.google.com" target="_blank">Open in new tab</a>'
-            },
-            {
-                tag: 'a_special',
-                displayName: 'Links: tel, mailto',
-                description: 'Using `mailto:` or `tel:` in the `href` attribute creates links that can open an email client or initiate a phone call. Example 👉Email: contact@example.com, phone number: 123-456-7890',
-                correctCode: '<a href="mailto:contact@example.com">Send Email</a>\n<a href="tel:123-456-7890">Call Us</a>'
-            },
-            // {
-            //     tag: 'path',
-            //     displayName: 'Concept: Paths',
-            //     description: 'Absolute paths use a full URL. Relative paths point to a file from the current page\'s location (`./` means the current folder).',
-            //     correctCode: '\n<a href="https://www.google.com/images/logo.png">Absolute Path Link</a>\n\n\n<a href="./pages/about.html">Relative Path Link</a>'
-            // },
-            {
-                tag: 'div_span',
-                displayName: 'Usage: <div> vs <span>',
-                description: '<div> is a "block-level" element used to group larger sections of content. <span> is an "inline" element used to style a small part of text within a line.',
-                correctCode: '<div>A div tag</div>\n  <div>takes up the full width (block).</div> \n  <span>A span tag </span>\n  <span>only takes up as much space as its content (inline).</span>'
-            },
-            {
-                tag: 'ul',
-                displayName: 'Lists: <ul> (Unordered)',
-                description: 'The <ul> tag creates an unordered list (bullet points). Each list item starts with the <li> tag.',
-                correctCode: '<ul>\n  <li>Apple</li>\n  <li>Banana</li>\n  <li>Strawberry</li>\n</ul>'
-            },
-            {
-                tag: 'ol',
-                displayName: 'Lists: <ol> (Ordered)',
-                description: 'The <ol> tag creates an ordered list (numbered). Each list item also starts with the <li> tag.',
-                correctCode: '<ol>\n  <li>First, open the door.</li>\n  <li>Second, close the door.</li>\n</ol>'
-            },
-            {
-                tag: 'table',
-                displayName: 'Tables: <table>',
-                description: 'Used to display data in rows and columns. <table> is the container, <tr> defines a row, <th> is a header cell, and <td> is a data cell.',
-                correctCode: '<table>\n  <tr>\n    <th>Name</th>\n    <th>Contact</th>\n  </tr>\n  <tr>\n    <td>John Doe</td>\n    <td>555-1234</td>\n  </tr>\n</table>'
-            },
-            {
-                tag: 'input_types',
-                displayName: 'Inputs: <input> types',
-                description: 'The <input> tag is used to create interactive controls for web-based forms. The `type` attribute can be `text`, `email`, `number`, and many others.',
-                correctCode: '<input type="text" placeholder="Enter your name">\n<input type="email" placeholder="Your email address">\n<input type="number" placeholder="Your age">'
-            },
-            {
-                tag: 'label',
-                displayName: 'Labels: <label> connection',
-                description: 'A <label> provides a caption for an <input> element. The `for` attribute of the label must match the `id` of the input to bind them. Example 👉 tag id: user-id',
-                correctCode: '<label for="user-id">User ID:</label>\n<input type="text" id="user-id">'
-            },
-            {
-                tag: 'comment',
-                displayName: 'Comments: ',
-                description: 'HTML comments are not displayed in the browser, but they can help document your source code for yourself and other developers. Example 👉 <!-- invisible -->',
-                correctCode: '<!-- invisible -->\n'
-            }
-        ];
-
-        // --- DOM Element Selection ---
-        const tagListEl = document.getElementById('tag-list');
-        const tagDescriptionEl = document.getElementById('tag-description'); // NEW
-        const outputDisplayEl = document.getElementById('output-display');
-        const htmlInputEl = document.getElementById('html-input');
-        const validateBtn = document.getElementById('validate-btn');
-        const initialMessageEl = document.getElementById('initial-message');
-
-        let currentTagData = null; 
-
-        // 1. Dynamically create the tag selection list
-        function createTagList() {
-            tagData.forEach(data => {
-                const listItem = document.createElement('li');
-                listItem.className = 'tag-item';
-                
-                const link = document.createElement('a');
-                link.href = '#';
-                link.textContent = data.displayName;
-                link.dataset.tag = data.tag;
-
-                listItem.appendChild(link);
-                tagListEl.appendChild(listItem);
-            });
+    </div> 
+    <script>
+    const topicsData = [
+        {
+            id: 'tagBasics',
+            name: 'Tag Basics',
+            example: `
+                <p>Tags define information and are written as <code>&lt;tag&gt;</code> and <code>&lt;/tag&gt;</code>.</p>
+                <p>Some tags are self-closing: <code>&lt;tag /&gt;</code> (e.g., <code>&lt;br /&gt;</code>, <code>&lt;img /&gt;</code>).</p>
+            `,
+            question: 'Write a paragraph tag containing the text "Hello".',
+            answer: '<p>Hello</p>'
+        },
+        {
+            id: 'docStructure',
+            name: 'Document Structure',
+            example: `
+                <p>This is the basic skeleton of every HTML page.</p>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;!-- Metadata (not visible) --&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Visible content --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            `,
+            question: 'Write the opening and closing tags for the *visible content* area.',
+            answer: '<body></body>'
+        },
+        {
+            id: 'linkTag',
+            name: 'Link Tag <a>',
+            example: `
+                <p>Creates a hyperlink. <b>href</b> is the URL. <b>target="_blank"</b> opens in a new tab.</p>
+                <pre><code>&lt;a href="https://google.com" target="_blank" title="Go to Google"&gt;
+  Click Me
+&lt;/a&gt;
+&lt;!-- Email Link --&gt;
+&lt;a href="mailto:test@example.com"&gt;Email Us&lt;/a&gt;</code></pre>
+            `,
+            question: 'Create a link to "https://google.com" that opens in a new tab and has the text "Google".',
+            answer: '<a href="https://google.com" target="_blank">Google</a>'
+        },
+        {
+            id: 'pBrNbsp',
+            name: '<p>, <br>, &nbsp;',
+            example: `
+                <p><code>&lt;p&gt;</code>: Paragraph tag (a block of text).</p>
+                <p><code>&lt;br&gt;</code>: Line Break tag (a new line, self-closing).</p>
+                <p><code>&amp;nbsp;</code>: A non-breaking space character.</p>
+                <pre><code>&lt;p&gt;First line.&lt;br&gt;Second line.&lt;/p&gt;
+&lt;p&gt;Space&amp;nbsp;&amp;nbsp;Here&lt;/p&gt;</code></pre>
+            `,
+            question: 'Write a paragraph with "Line 1" and "Line 2" on separate lines.',
+            answer: '<p>Line 1<br>Line 2</p>'
+        },
+        {
+            id: 'imgTag',
+            name: 'Image Tag <img>',
+            example: `
+                <p>Displays an image (self-closing). <b>src</b> is the path. <b>alt</b> is for accessibility. <b>width</b>/<b>height</b> set dimensions.</p>
+                <pre><code>&lt;img src="image.jpg" alt="A test image" width="50"&gt;</code></pre>
+            `,
+            question: 'Display an image from "cat.jpg" with alternative text "A cute cat".',
+            answer: '<img src="cat.jpg" alt="A cute cat">'
+        },
+        {
+            id: 'parentChild',
+            name: 'Parent/Child Tags',
+            example: `
+                <p>Tags inside other tags create a relationship.</p>
+                <pre><code>&lt;div&gt; &lt;!-- Parent --&gt;
+  &lt;p&gt; &lt;!-- Child of div --&gt;
+    &lt;strong&gt; &lt;!-- Child of p --&gt;
+    &lt;/strong&gt;
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                <p><b>Ancestor:</b> A tag above (e.g., <code>&lt;div&gt;</code> is an ancestor of <code>&lt;strong&gt;</code>).</p>
+                <p><b>Descendant:</b> A tag below (e.g., <code>&lt;strong&gt;</code> is a descendant of <code>&lt;div&gt;</code>).</p>
+            `,
+            question: 'Given <div><p>Hello</p></div>, which tag is the *child* of <div>?',
+            answer: '<p>'
+        },
+        {
+            id: 'inlineBlock',
+            name: 'Inline vs. Block',
+            example: `
+                <p><b>Block Elements</b>: Take up the full width, start on a new line. (e.g., <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>)</p>
+                <p><b>Inline Elements</b>: Take up only as much space as needed, do not start on a new line. (e.g., <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;strong&gt;</code>)</p>
+            `,
+            question: 'Is the <p> (paragraph) tag an Inline or Block element?',
+            answer: 'Block'
+        },
+        {
+            id: 'divSpan',
+            name: '<div> & <span>',
+            example: `
+                <p>Grouping tags with no special meaning.</p>
+                <p><code>&lt;div&gt;</code>: A <b>block-level</b> container for grouping sections.</p>
+                <p><code>&lt;span&gt;</code>: An <b>inline</b> container for grouping small parts of text.</p>
+            `,
+            question: 'Use an *inline* grouping tag to wrap the word "Warning".',
+            answer: '<span>Warning</span>'
+        },
+        {
+            id: 'headings',
+            name: 'Headings <h1>-<h6>',
+            example: `
+                <p>Used for titles and subtitles. <code>&lt;h1&gt;</code> is the most important, <code>&lt;h6&gt;</code> is the least.</p>
+                <pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;h2&gt;Subtitle&lt;/h2&gt;</code></pre>
+            `,
+            question: 'Write the tag for the *most important* heading.',
+            answer: '<h1>'
+        },
+        {
+            id: 'lists',
+            name: 'Lists (ul, ol, li)',
+            example: `
+                <p><code>&lt;ul&gt;</code>: Unordered List (bullets).</p>
+                <p><code>&lt;ol&gt;</code>: Ordered List (numbers).</p>
+                <p><code>&lt;li&gt;</code>: List Item (used inside <b>ul</b> or <b>ol</b>).</p>
+                <pre><code>&lt;ul&gt;
+  &lt;li&gt;Apple&lt;/li&gt;
+  &lt;li&gt;Banana&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+            `,
+            question: 'Write an *unordered* list with one item: "Coffee".',
+            answer: '<ul><li>Coffee</li></ul>'
+        },
+        {
+            id: 'strongB',
+            name: 'Bold <strong>, <b>',
+            example: `
+                <p><code>&lt;strong&gt;</code>: Makes text bold and indicates strong importance.</p>
+                <p><code>&lt;b&gt;</code>: Makes text bold (visual only, no extra importance).</p>
+            `,
+            question: 'Make the text "Alert" bold with semantic importance.',
+            answer: '<strong>Alert</strong>'
+        },
+        {
+            id: 'inputTag',
+            name: '<input> Tag',
+            example: `
+                <p>Allows users to enter data. The <b>type</b> attribute is very important.</p>
+                <pre><code>&lt;input type="text" placeholder="Enter your name"&gt;
+&lt;input type="number"&gt;
+&lt;input type="checkbox"&gt;</code></pre>
+            `,
+            question: 'Write an input tag for entering plain text, with "Email" as the placeholder.',
+            answer: '<input type="text" placeholder="Email">'
+        },
+        {
+            id: 'tableTag',
+            name: '<table> Tag',
+            example: `
+                <p>Creates a table. <code>&lt;tr&gt;</code> (row), <code>&lt;th&gt;</code> (header), <code>&lt;td&gt;</code> (data cell).</p>
+                <pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Alice&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+            `,
+            question: 'Write the tags for a table row containing one data cell.',
+            answer: '<tr><td></td></tr>'
+        },
+        {
+            id: 'comment',
+            name: 'Comment',
+            example: `
+                <p>Adds explanations to the code (not visible). Press Ctrl + /.</p>
+                <pre><code>&lt;!-- This is a comment --&gt;
+&lt;p&gt;This is visible.&lt;/p&gt;</code></pre>
+            `,
+            question: 'Write an HTML comment that says "Header section".',
+            answer: '<!-- Header section -->'
         }
+    ];
 
-        // 2. Handle clicks on the tag selection list
-        tagListEl.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'A') return;
-            e.preventDefault();
+    // --- Global Variables & DOM Elements ---
+    let currentAnswer = ''; 
+    const menu = document.getElementById('menu');
+    const exampleTitle = document.getElementById('example-title');
+    const exampleDesc = document.getElementById('example-description');
+    const exampleQ = document.getElementById('example-question');
+    const userInput = document.getElementById('user-input');
+    const checkBtn = document.getElementById('check-btn');
+    const feedback = document.getElementById('feedback');
 
-            const currentActive = tagListEl.querySelector('.active');
-            if (currentActive) {
-                currentActive.classList.remove('active');
-            }
-            e.target.classList.add('active');
+    // --- Function Definitions ---
 
-            if(initialMessageEl) {
-                initialMessageEl.style.display = 'none';
-            }
+    /**
+     * 1. Function to load topic content (example, question) into the view
+     */
+    function loadTopic(topicId) {
+        const topic = topicsData.find(t => t.id === topicId);
+        if (!topic) return;
 
-            const selectedTag = e.target.dataset.tag;
-            currentTagData = tagData.find(data => data.tag === selectedTag);
-            updatePracticeArea();
-        });
+        exampleTitle.innerText = topic.name;
+        exampleDesc.innerHTML = topic.example;
+        exampleQ.innerText = 'Problem: ' + topic.question;
+        currentAnswer = topic.answer;
+        
+        userInput.value = '';
+        feedback.innerText = '';
+        feedback.className = ''; 
+    }
 
-        // 3. Update the description and practice area based on the selected tag
-        function updatePracticeArea() {
-            if (!currentTagData) return;
-            
-            // NEW: Update the description text
-            tagDescriptionEl.textContent = currentTagData.description;
-
-            // Display the rendered HTML of the correct code
-            outputDisplayEl.innerHTML = currentTagData.correctCode;
-
-            // Clear the input textarea and focus it
-            htmlInputEl.value = '';
-            htmlInputEl.focus();
+    /**
+     * 2. Function to run when the 'Check Answer' button is clicked
+     */
+    function checkAnswer() {
+        if (currentAnswer === '') {
+             alert('Please select a topic from the menu first.');
+             return;
         }
+        
+        // Normalize whitespace (spaces, tabs, newlines)
+        const userText = userInput.value.trim().replace(/\s+/g, ' ');
+        const correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
 
-        // 4. Validate the user's input
-        validateBtn.addEventListener('click', function() {
-            if (!currentTagData) {
-                alert('Please select an item to practice from the list above first!');
-                return;
-            }
+        if (userText === correctAnswer) {
+            feedback.innerText = 'Correct! 👏';
+            feedback.className = 'correct'; 
+        } else {
+            feedback.innerText = `Incorrect. 😥\nThe correct answer is:\n\n${currentAnswer}`;
+            feedback.className = 'incorrect'; 
+        }
+    }
 
-            const userInput = htmlInputEl.value.trim().replace(/\s+/g, ' ');
-            const correctCode = currentTagData.correctCode.trim().replace(/\s+/g, ' ');
-
-            if (userInput === correctCode) {
-                alert('Correct! Great job! 👍');
-            } else {
-                alert('Not quite right. 😥 Review the correct answer below and try again.\n\n[Correct Answer]\n' + currentTagData.correctCode);
-            }
+    /**
+     * 3. (Initialization) Function to create the top menu buttons
+     */
+    function createMenuButtons() {
+        topicsData.forEach(topic => {
+            const button = document.createElement('button');
+            button.innerText = topic.name;
+            button.onclick = () => loadTopic(topic.id);
+            menu.appendChild(button);
         });
+    }
 
-        // --- Initial Setup on Page Load ---
-        window.onload = function() {
-            createTagList();
-        };
+    // --- Script Execution (Initialization) ---
+    
+    createMenuButtons();
+    checkBtn.onclick = checkAnswer;
 
+    if (topicsData.length > 0) {
+        loadTopic(topicsData[0].id);
+    }
     </script>
 </body>
 </html>
