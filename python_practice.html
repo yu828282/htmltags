@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics Review</title>
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px; /* Add padding to body */
+            background-color: #f9f9f9;
+        }
+
+        /* --- [NEW] Main Container --- */
+        /* This new container will wrap everything, just like on the HTML page */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* --- [NEW] Header for Back Link --- */
+        .container-header {
+            padding: 20px 20px 10px 20px;
+        }
+        .back-link {
+            font-size: 16px;
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+        
+        /* Top Menu Bar */
+        #menu {
+            display: flex;
+            flex-wrap: wrap; /* Wrap on small screens */
+            justify-content: center;
+            background-color: #333;
+            padding: 10px 20px; /* Added horizontal padding */
+            /* [REMOVED] box-shadow: 0 2px 5px rgba(0,0,0,0.1); */ 
+            /* Shadow is now on the main .container */
+        }
+        #menu button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        #menu button:hover {
+            background-color: #45a049;
+        }
+
+        /* Main Content Container (Left/Right Split) */
+        #container {
+            display: flex;
+            flex-wrap: wrap; /* Stack vertically on small screens */
+            /* [CHANGED] margin: 20px; -> padding: 20px; */
+            padding: 20px; 
+            gap: 20px; /* Gap between panels */
+        }
+
+        /* Common Panel Styles */
+        .panel {
+            flex: 1; /* 1:1 ratio */
+            min-width: 300px; /* Minimum width */
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 20px;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        .panel h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Left Example Panel */
+        #example-panel pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            overflow-x: auto; /* Scroll if code is long */
+        }
+        #example-question {
+            font-weight: bold;
+            color: #0056b3; /* Blue color */
+            margin-top: 20px;
+        }
+
+        /* Right Input Panel */
+        #user-input {
+            width: 100%;
+            height: 150px;
+            box-sizing: border-box; /* Include padding/border */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: Consolas, "Courier New", monospace; /* Coding font */
+            font-size: 14px;
+        }
+        #check-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF; /* Blue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        #check-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Feedback Message */
+        #feedback {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            color: #155724; /* Green text */
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .incorrect {
+            color: #721c24; /* Red text */
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            white-space: pre-wrap; /* Allow line breaks in answer */
+        }
+
+        /* --- [NEW] Button Styles (Copied from HTML page) --- */
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-external {
+            background-color: #3498db; /* Python blue */
+        }
+        .btn-external:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        /* --- [NEW] Footer for Practice Button --- */
+        .container-footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- [NEW] Main .container wrapper -->
+    <div class="container">
+
+        <!-- [NEW] Header for Back Link -->
+        <div class="container-header">
+            <a href="index.html" class="back-link">← Back to Main</a>
+        </div>
+
+        <!-- [MOVED] Menu is now inside the .container -->
+        <nav id="menu"></nav>
+
+        <!-- [MOVED] Main content is now inside the .container -->
+        <main id="container">
+            <div id="example-panel" class="panel">
+                <h2 id="example-title"></h2>
+                <div id="example-description"></div>
+                <p id="example-question"></p>
+            </div>
+            <div id="input-panel" class="panel">
+                <h2>Input Panel</h2>
+                <p>Read the problem on the left and enter your code.</p>
+                <textarea id="user-input" placeholder="Enter your code here..."></textarea>
+                <button id="check-btn">Check Answer</button>
+                <p id="feedback"></p>
+            </div>
+        </main>
+
+        <!-- [NEW] Footer for Live Practice Button -->
+        <div class="container-footer">
+            <a href="https://www.online-python.com/" class="btn btn-external" target="_blank">
+                🌐 Live Python Practice Site
+            </a>
+        </div>
+
+    </div> <!-- End of .container -->
+
+
+    <!-- [REMOVED] Links are now inside the .container -->
+    <!-- <a href="index.html" class="back-link">← Back to Main</a> -->
+    <!-- <a href="https.www.online-python.com/" ... </a> -->
+
+
+    <script>
+    const topicsData = [
+        {
+            id: 'printInput',
+            name: 'print() & input()',
+            example: `
+                <p><b>print()</b>: Displays the value inside the parentheses on the screen.</p>
+                <pre><code>print("Hello")
+print(123)</code></pre>
+                <p><b>input()</b>: Receives input from the user. (Does not run in this simple site)</p>
+                <pre><code>name = input("Enter your name: ")
+print(name)</code></pre>
+            `,
+            question: 'Write the code to print "Hello, World!" to the screen.',
+            answer: 'print("Hello, World!")'
+        },
+        {
+            id: 'math',
+            name: 'Basic Math (+, -, *, /)',
+            example: `
+                <p>Python supports basic arithmetic operations.</p>
+                <pre><code>print(10 + 5)  # Addition (Result: 15)
+print(10 - 5)  # Subtraction (Result: 5)
+print(10 * 5)  # Multiplication (Result: 50)
+print(10 / 5)  # Division (Result: 2.0)</code></pre>
+            `,
+            question: 'Write the code to print the result of adding 10 and 5.',
+            answer: 'print(10 + 5)'
+        },
+        {
+            id: 'order',
+            name: 'Control Order ( )',
+            example: `
+                <p>You can use parentheses <b>( )</b> to control the order of operations. Operations inside parentheses are performed first.</p>
+                <pre><code># Without parentheses (multiplication first)
+print(2 + 3 * 4)  # Result: 14
+
+# With parentheses (addition first)
+print((2 + 3) * 4)  # Result: 20</code></pre>
+            `,
+            question: 'Write the code to print the result of (10 + 20) multiplied by 3.',
+            answer: 'print((10 + 20) * 3)'
+        },
+        {
+            id: 'variable',
+            name: 'Variable',
+            example: `
+                <p>A variable is a space to store a value. Use the <b>=</b> sign to assign a value.</p>
+                <pre><code># Store 30 in a variable named age
+age = 30
+
+# Store the string "Alice" in a variable named name
+name = "Alice"
+
+# Print the variable values
+print(age)
+print(name)</code></pre>
+            `,
+            question: 'Write the code to store the number 25 in a variable named my_age.',
+            answer: 'my_age = 25'
+        },
+        {
+            id: 'types',
+            name: 'Data Types',
+            example: `
+                <p>There are several types of data.</p>
+                <pre><code>x = 10        # Integer (int)
+y = 3.14      # Float (float)
+z = "Python"  # String (str)
+a = True      # Boolean (bool)</code></pre>
+            `,
+            question: 'Write the code to create a variable named subject with the string value "Python".',
+            answer: 'subject = "Python"'
+        },
+        {
+            id: 'conversion',
+            name: 'type(), int(), str()',
+            example: `
+                <p>You can check or convert data types.</p>
+                <pre><code># type(): Check type
+print(type(10))   # &lt;class 'int'&gt;
+print(type("10"))   # &lt;class 'str'&gt;
+
+# int(): Convert to integer
+num_str = "123"
+num_int = int(num_str) # 123 (as a number)
+
+# str(): Convert to string
+num = 123
+str_num = str(num)     # "123" (as a string)</code></pre>
+            `,
+            question: 'Write the code to convert the string "500" to the number 500 and store it in a variable named num.',
+            answer: 'num = int("500")'
+        },
+        {
+            id: 'string',
+            name: 'String Index & Slice',
+            example: `
+                <p>A string is an ordered sequence of characters.</p>
+                <p><b>Indexing</b>: Gets a single character from a specific position. (Starts from 0)</p>
+                <pre><code>s = "Python"
+print(s[0])   # 'P'
+print(s[2])   # 't'</code></pre>
+                <p><b>-1</b> means the last letter, <b>-2</b> means the second to last letter.</p>
+                <pre><code>s = "Python"
+print(s[-1])  # 'n'
+print(s[-2])  # 'o'
+print(s[-6])  # 'P'
+</code></pre>
+                <p><b>Slicing</b>: Extracts a range of characters. <b>[start:end]</b> (The end index is not included)</p>
+                <pre><code>s = "Python"
+print(s[1:4]) # 'yth' (from index 1 up to *before* 4)
+print(s[:2])  # 'Py' (from the beginning up to *before* 2)
+print(s[3:])  # 'hon' (from index 3 to the end)</code></pre>
+            `,
+            question: 'Given the variable text = "Hello", write the code to slice and print only "ell".',
+            answer: 'print(text[1:4])'
+        }
+    ];
+
+    // --- Global Variables & DOM Elements ---
+    let currentAnswer = ''; // The correct answer for the currently selected topic
+    const menu = document.getElementById('menu');
+    const exampleTitle = document.getElementById('example-title');
+    const exampleDesc = document.getElementById('example-description');
+    const exampleQ = document.getElementById('example-question');
+    const userInput = document.getElementById('user-input');
+    const checkBtn = document.getElementById('check-btn');
+    const feedback = document.getElementById('feedback');
+
+    // --- Function Definitions ---
+
+    /**
+     * 1. Function to load topic content (example, question) into the view
+     */
+    function loadTopic(topicId) {
+        // 1. Find the corresponding data in topicsData using topicId
+        const topic = topicsData.find(t => t.id === topicId);
+        if (!topic) return;
+
+        // 2. Populate the left panel (example, question)
+        exampleTitle.innerText = topic.name;
+        exampleDesc.innerHTML = topic.example;
+        exampleQ.innerText = 'Problem: ' + topic.question;
+
+        // 3. Store the current answer in the global variable
+        currentAnswer = topic.answer;
+
+        // 4. Reset the right panel (input, feedback)
+        userInput.value = '';
+        feedback.innerText = '';
+        feedback.className = ''; // Remove feedback styles (correct, incorrect)
+    }
+
+    /**
+     * 2. Function to run when the 'Check Answer' button is clicked
+     */
+    function checkAnswer() {
+        // 1. Get the user's input (trimmed)
+        const userText = userInput.value.trim();
+
+        // 2. Compare with the correct answer
+        if (userText === currentAnswer) {
+            // If correct
+            feedback.innerText = 'Correct! 👏';
+            feedback.className = 'correct'; // Apply green style
+        } else {
+            // If incorrect
+            feedback.innerText = `Incorrect. 😥\nThe correct answer is:\n\n${currentAnswer}`;
+            feedback.className = 'incorrect'; // Apply red style
+        }
+    }
+
+    /**
+     * 3. (Initialization) Function to create the top menu buttons
+     */
+    function createMenuButtons() {
+        topicsData.forEach(topic => {
+            const button = document.createElement('button');
+            button.innerText = topic.name;
+            // Load the topic when the button is clicked
+            button.onclick = () => loadTopic(topic.id);
+            menu.appendChild(button);
+        });
+    }
+
+    // --- Script Execution (Initialization) ---
+    
+    // 1. Create menu buttons
+    createMenuButtons();
+
+    // 2. Attach click event to the 'Check Answer' button
+    checkBtn.onclick = checkAnswer;
+
+    // 3. Auto-load the first topic when the page loads
+    if (topicsData.length > 0) {
+        loadTopic(topicsData[0].id);
+    }
+    </script>
+</body>
+</html>
