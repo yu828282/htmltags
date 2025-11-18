@@ -218,7 +218,7 @@
                 <p><b>print()</b>: Displays the value inside the parentheses on the screen.</p>
                 <pre><code>print("Hello")
 print(123)</code></pre>
-                <p><b>input()</b>: Receives input from the user. (Does not run in this simple site)</p>
+                <p><b>input()</b>: Receives input from the user.</p>
                 <pre><code>name = input("Enter your name: ")
 print(name)</code></pre>
             `,
@@ -420,6 +420,80 @@ else:
             `,
             question: 'Given score = 75, print "A" if score > 90, "B" if score > 80, or "C" if score > 70.',
             answer: 'if score > 90:\n    print("A")\nelif score > 80:\n    print("B")\nelif score > 70:\n    print("C")'
+        },
+        {
+            id: 'comparison',
+            name: 'Comparison Operators',
+            example: `
+                <p>Used to compare two values. Returns <b>True</b> or <b>False</b>.</p>
+                <ul>
+                    <li><code>&gt;</code> : Greater than</li>
+                    <li><code>&lt;</code> : Less than</li>
+                    <li><code>==</code> : Equal to</li>
+                    <li><code>!=</code> : Not equal to</li>
+                    <li><code>&gt;=</code> : Greater than or equal to</li>
+                    <li><code>&lt;=</code> : Less than or equal to</li>
+                </ul>
+                <pre><code>print(10 > 5)  # True
+print(5 == 5)  # True
+print(5 != 5)  # False</code></pre>
+            `,
+            question: 'Write code to print True if 10 is equal to 10.',
+            answer: 'print(10 == 10)'
+        },
+        {
+            id: 'logical',
+            name: 'Logical Operators',
+            example: `
+                <p>Used to combine conditional statements.</p>
+                <ul>
+                    <li><b>and</b>: True if <b>both</b> statements are true.</li>
+                    <li><b>or</b>: True if <b>at least one</b> statement is true.</li>
+                    <li><b>not</b>: Reverses the result (True -> False).</li>
+                </ul>
+                <pre><code>a = 10
+b = 5
+# True because both are True
+print(a > 5 and b < 10) 
+
+# True because one is True
+print(a > 100 or b == 5)
+
+# False because not reverses True
+print(not (a == 10))</code></pre>
+            `,
+            question: 'Write code that checks if 10 is greater than 5 AND 3 is less than 4.',
+            answer: 'print(10 > 5 and 3 < 4)'
+        },
+        {
+            id: 'nestedIf',
+            name: 'Nested If (if inside if)',
+            example: `
+                <p>You can place an <b>if</b> statement inside another <b>if</b> statement.</p>
+                <pre><code>num = 10
+if num > 5:
+    print("Greater than 5")
+    if num == 10:
+        print("It is 10")</code></pre>
+            `,
+            question: 'Write a nested if: If age >= 18, check if age < 30. If both are true, print "Youth".',
+            answer: 'if age >= 18:\n    if age < 30:\n        print("Youth")'
+        },
+        {
+            id: 'tryExcept',
+            name: 'Try / Except (Error Handling)',
+            example: `
+                <p>Prevents the program from crashing when an error occurs (e.g., dividing by zero, invalid input).</p>
+                <pre><code>try:
+    # Code that might cause an error
+    print(10 / 0)
+except:
+    # Code runs if an error occurs
+    print("You cannot divide by zero!")</code></pre>
+                <p>Common use: Handling invalid user input (text instead of number).</p>
+            `,
+            question: 'Wrap `print(int("abc"))` in a try/except block. Print "Error" if it fails.',
+            answer: 'try:\n    print(int("abc"))\nexcept:\n    print("Error")'
         }
     ];
 
