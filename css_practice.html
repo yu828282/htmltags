@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Basics Review 🎨</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        /* Basic Styles */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
@@ -13,7 +13,6 @@
             background-color: #f9f9f9;
         }
 
-        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -22,8 +21,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-
-        /* Header for Back Link */
+        
         .container-header {
             padding: 20px 20px 10px 20px;
         }
@@ -38,16 +36,15 @@
             text-decoration: underline;
         }
         
-        /* Top Menu Bar */
         #menu {
             display: flex;
-            flex-wrap: wrap; /* Wrap on small screens */
+            flex-wrap: wrap; 
             justify-content: center;
             background-color: #333;
             padding: 10px 20px;
         }
         #menu button {
-            background-color: #007BFF; /* CSS Blue */
+            background-color: #007BFF;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -61,15 +58,25 @@
             background-color: #0056b3;
         }
 
-        /* Main Content Container (Left/Right Split) */
-        #content-area { /* Renamed from #container to avoid ID conflict */
+        #menu button.completed {
+            background-color: #2ecc71 !important; 
+            position: relative;
+            padding-right: 30px; 
+        }
+        #menu button.completed::after {
+            content: "✅";
+            position: absolute;
+            right: 8px;
+            font-size: 12px;
+        }
+
+        #content-area {
             display: flex;
             flex-wrap: wrap;
             padding: 20px; 
             gap: 20px;
         }
-
-        /* Common Panel Styles */
+        
         .panel {
             flex: 1;
             min-width: 300px;
@@ -87,7 +94,6 @@
             padding-bottom: 10px;
         }
 
-        /* Left Example Panel */
         #example-panel pre {
             background-color: #f4f4f4;
             padding: 15px;
@@ -101,12 +107,10 @@
             color: #0056b3;
             margin-top: 20px;
         }
-        /* Style for <code> tags inside <pre> */
         #example-panel pre code {
             font-family: Consolas, "Courier New", monospace;
         }
 
-        /* Right Input Panel */
         #user-input {
             width: 100%;
             height: 150px;
@@ -120,7 +124,7 @@
         #check-btn {
             width: 100%;
             padding: 12px;
-            background-color: #007BFF; /* Blue */
+            background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
@@ -133,14 +137,13 @@
             background-color: #0056b3;
         }
 
-        /* Feedback Message */
         #feedback {
             margin-top: 15px;
             font-size: 16px;
             font-weight: bold;
             padding: 10px;
             border-radius: 5px;
-            white-space: pre-wrap; /* Allow line breaks in answer */
+            white-space: pre-wrap;
         }
         .correct {
             color: #155724;
@@ -153,7 +156,6 @@
             border: 1px solid #f5c6cb;
         }
 
-        /* Button Styles */
         .btn {
             display: inline-block;
             padding: 15px 35px;
@@ -166,14 +168,13 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .btn-external {
-            background-color: #2ecc71; /* Green */
+            background-color: #2ecc71;
         }
         .btn-external:hover {
             background-color: #27ae60;
             transform: translateY(-3px);
         }
 
-        /* Footer for Practice Button */
         .container-footer {
             padding: 20px;
             text-align: center;
@@ -182,7 +183,6 @@
     </style>
 </head>
 <body>
-
     <div class="container">
 
         <div class="container-header">
@@ -212,7 +212,10 @@
             </a>
         </div>
 
-    </div> <script>
+    </div> 
+    <script>
+    const PAGE_KEY = 'css_practice_progress';
+    
     // --- CSS Practice Data ---
     const topicsData = [
         {
@@ -423,8 +426,8 @@ text-align: right;   /* Right */</code></pre>
         }
     ];
 
-    // --- Global Variables & DOM Elements ---
     let currentAnswer = '';
+    let currentTopicId = ''; 
     const menu = document.getElementById('menu');
     const exampleTitle = document.getElementById('example-title');
     const exampleDesc = document.getElementById('example-description');
@@ -433,15 +436,11 @@ text-align: right;   /* Right */</code></pre>
     const checkBtn = document.getElementById('check-btn');
     const feedback = document.getElementById('feedback');
 
-    // --- Function Definitions ---
-
-    /**
-     * 1. Load topic content (example, question) into the view
-     */
     function loadTopic(topicId) {
         const topic = topicsData.find(t => t.id === topicId);
         if (!topic) return;
 
+        currentTopicId = topicId; 
         exampleTitle.innerText = topic.name;
         exampleDesc.innerHTML = topic.example;
         exampleQ.innerText = 'Problem: ' + topic.question;
@@ -452,42 +451,65 @@ text-align: right;   /* Right */</code></pre>
         feedback.className = '';
     }
 
-    /**
-     * 2. Check the user's answer
-     */
+    function saveProgress(topicId) {
+        let progress = JSON.parse(localStorage.getItem(PAGE_KEY)) || [];
+        
+        if (!progress.includes(topicId)) {
+            progress.push(topicId);
+            localStorage.setItem(PAGE_KEY, JSON.stringify(progress));
+        }
+        
+        updateButtonStyles();
+    }
+
+    function updateButtonStyles() {
+        let progress = JSON.parse(localStorage.getItem(PAGE_KEY)) || [];
+        
+        progress.forEach(completedId => {
+            const btn = document.getElementById('btn-' + completedId);
+            if (btn) {
+                btn.classList.add('completed');
+            }
+        });
+    }
+
     function checkAnswer() {
         if (currentAnswer === '') {
             alert('Please select a topic from the menu first.');
             return;
         }
 
-        // Normalize whitespace for flexible CSS comparison
-        // "p { color: red; }" will match "p {\n  color: red;\n}"
         const userText = userInput.value.trim().replace(/\s+/g, ' ');
         const correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
 
         if (userText === correctAnswer) {
             feedback.innerText = 'Correct! 👏';
             feedback.className = 'correct';
+            
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+            
+            saveProgress(currentTopicId);
         } else {
             feedback.innerText = `Incorrect. 😥\nThe correct answer is:\n\n${currentAnswer}`;
             feedback.className = 'incorrect';
         }
     }
 
-    /**
-     * 3. (Initialization) Create the top menu buttons
-     */
     function createMenuButtons() {
         topicsData.forEach(topic => {
             const button = document.createElement('button');
             button.innerText = topic.name;
+            button.id = 'btn-' + topic.id;
             button.onclick = () => loadTopic(topic.id);
             menu.appendChild(button);
         });
+    
+        updateButtonStyles();
     }
-
-    // --- Script Execution (Initialization) ---
     
     createMenuButtons();
     checkBtn.onclick = checkAnswer;

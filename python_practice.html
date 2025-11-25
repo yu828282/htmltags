@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Basics Review</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        /* Basic Styles */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
-            padding: 20px; /* Add padding to body */
+            padding: 20px;
             background-color: #f9f9f9;
         }
-
-        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -22,8 +20,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-
-        /* Header for Back Link */
         .container-header {
             padding: 20px 20px 10px 20px;
         }
@@ -37,17 +33,15 @@
             color: #3498db;
             text-decoration: underline;
         }
-        
-        /* Top Menu Bar */
         #menu {
             display: flex;
-            flex-wrap: wrap; /* Wrap on small screens */
+            flex-wrap: wrap;
             justify-content: center;
             background-color: #333;
             padding: 10px 20px; 
         }
         #menu button {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50; 
             color: white;
             border: none;
             padding: 10px 15px;
@@ -61,15 +55,23 @@
             background-color: #45a049;
         }
 
-        /* Main Content Container (Left/Right Split) */
+        #menu button.completed {
+            background-color: #218c3d !important;
+            position: relative;
+            padding-right: 30px;
+        }
+        #menu button.completed::after {
+            content: "✅";
+            position: absolute;
+            right: 8px;
+            font-size: 12px;
+        }
         #container {
             display: flex;
             flex-wrap: wrap; 
             padding: 20px; 
             gap: 20px; 
         }
-
-        /* Common Panel Styles */
         .panel {
             flex: 1; 
             min-width: 300px; 
@@ -86,23 +88,19 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
-
-        /* Left Example Panel */
         #example-panel pre {
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 5px;
             border: 1px solid #e0e0e0;
             overflow-x: auto; 
-            white-space: pre-wrap; /* Preserve line breaks in examples */
+            white-space: pre-wrap;
         }
         #example-question {
             font-weight: bold;
             color: #0056b3; 
             margin-top: 20px;
         }
-
-        /* Right Input Panel */
         #user-input {
             width: 100%;
             height: 150px;
@@ -128,15 +126,13 @@
         #check-btn:hover {
             background-color: #0056b3;
         }
-
-        /* Feedback Message */
         #feedback {
             margin-top: 15px;
             font-size: 16px;
             font-weight: bold;
             padding: 10px;
             border-radius: 5px;
-            white-space: pre-wrap; /* Allow line breaks in answer */
+            white-space: pre-wrap; 
         }
         .correct {
             color: #155724; 
@@ -148,8 +144,6 @@
             background-color: #f8d7da;
             border: 1px solid #f5c6cb;
         }
-
-        /* Button Styles */
         .btn {
             display: inline-block;
             padding: 15px 35px;
@@ -162,14 +156,13 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .btn-external {
-            background-color: #3498db; /* Python blue */
+            background-color: #3498db;
         }
         .btn-external:hover {
             background-color: #2980b9;
             transform: translateY(-3px);
         }
 
-        /* Footer for Practice Button */
         .container-footer {
             padding: 20px;
             text-align: center;
@@ -208,8 +201,12 @@
             </a>
         </div>
 
-    </div> <script>
-    // --- [UPDATED] Added new topics for Lists, Tuples, Dictionaries, and If-statements ---
+    </div>
+
+    <script>
+
+    const PAGE_KEY = 'python_practice_progress';
+
     const topicsData = [
         {
             id: 'printInput',
@@ -327,21 +324,18 @@ print(fruits[1:3])  # ['banana', 'cherry']</code></pre>
         },
         {
             id: 'listMethods',
-            name: 'List Methods (len, .append, .remove)',
+            name: 'List Methods',
             example: `
                 <p><b>len()</b>: Gets the number of items in the list.</p>
-                <pre><code>print(len(["a", "b", "c"]))  # Result: 3</code></pre>
                 <p><b>.append()</b>: Adds a new item to the <b>end</b> of the list.</p>
-                <pre><code>colors = ["red"]
-colors.append("blue")
-# colors is now ["red", "blue"]</code></pre>
                 <p><b>.remove()</b>: Deletes the <b>first</b> item with a specific value.</p>
-                <pre><code>colors = ["red", "blue", "red"]
-colors.remove("red")
-# colors is now ["blue", "red"]</code></pre>
+                <pre><code>colors = ["red", "blue"]
+print(len(colors)) # 2
+colors.append("green") # ["red", "blue", "green"]
+colors.remove("red")   # ["blue", "green"]</code></pre>
             `,
-            question: 'Given colors = ["red"], write code to add "blue" to the end of the list.',
-            answer: 'colors.append("blue")'
+            question: 'Given my_list = [1, 2, 3], write code to add the number 4 to the end.',
+            answer: 'my_list.append(4)'
         },
         {
             id: 'tupleIntro',
@@ -494,11 +488,141 @@ except:
             `,
             question: 'Wrap `print(int("abc"))` in a try/except block. Print "Error" if it fails.',
             answer: 'try:\n    print(int("abc"))\nexcept:\n    print("Error")'
+        },
+        {
+            id: 'forLoop',
+            name: 'For Loop',
+            example: `
+                <p>Loops through numbers, lists, or text.</p>
+                <pre><code># Range (0 to 2)
+for i in range(3):
+    print(i)
+
+# List
+fruits = ["apple", "banana"]
+for fruit in fruits:
+    print(fruit)
+
+# Text
+for char in "Hi":
+    print(char)</code></pre>
+            `,
+            question: 'Write a for loop that prints numbers 0 to 4 using range().',
+            answer: 'for i in range(5):\n    print(i)'
+        },
+        {
+            id: 'whileLoop',
+            name: 'While Loop',
+            example: `
+                <p>Repeats as long as the condition is <b>True</b>.</p>
+                <pre><code>i = 0
+while i < 3:
+    print(i)
+    i = i + 1</code></pre>
+            `,
+            question: 'Write a while loop that runs while x is less than 5. Inside, print x and increment x by 1.',
+            answer: 'while x < 5:\n    print(x)\n    x = x + 1'
+        },
+        {
+            id: 'breakContinue',
+            name: 'Break & Continue',
+            example: `
+                <p><b>break</b>: Stops the loop completely.</p>
+                <p><b>continue</b>: Skips the current step and goes to the next.</p>
+                <pre><code>for i in range(10):
+    if i == 5:
+        break  # Stops at 5
+    if i == 2:
+        continue # Skips 2</code></pre>
+            `,
+            question: 'Inside a for loop (range 10), break the loop if the number equals 7.',
+            answer: 'for i in range(10):\n    if i == 7:\n        break'
+        },
+        {
+            id: 'functions',
+            name: 'Functions (def)',
+            example: `
+                <p>A function is a reusable block of code. Defined using <b>def</b>.</p>
+                <pre><code># Define
+def greet():
+    print("Hello!")
+
+# Call (Use)
+greet()</code></pre>
+            `,
+            question: 'Define a function named `say_hi` that prints "Hi".',
+            answer: 'def say_hi():\n    print("Hi")'
+        },
+        {
+            id: 'paramReturn',
+            name: 'Parameters & Return',
+            example: `
+                <p><b>Parameter</b>: Input value for function.</p>
+                <p><b>Return</b>: Output value from function.</p>
+                <pre><code>def add(a, b):
+    return a + b
+
+result = add(3, 5) # result is 8</code></pre>
+            `,
+            question: 'Define a function `multiply(x, y)` that returns x * y.',
+            answer: 'def multiply(x, y):\n    return x * y'
+        },
+        {
+            id: 'practiceSum',
+            name: 'Practice: Sum Function',
+            example: `
+                <p>Create a function that takes two inputs and prints their sum.</p>
+                <pre><code>def print_sum(a, b):
+    print(a + b)</code></pre>
+            `,
+            question: 'Define `add_nums(a, b)` that prints the sum of a and b.',
+            answer: 'def add_nums(a, b):\n    print(a + b)'
+        },
+        {
+            id: 'practiceMax',
+            name: 'Practice: Max Function',
+            example: `
+                <p>Create a function that returns the larger of two numbers.</p>
+                <pre><code>def find_max(a, b):
+    if a > b:
+        return a
+    else:
+        return b</code></pre>
+            `,
+            question: 'Define `my_max(a, b)` that returns the larger number using if/else.',
+            answer: 'def my_max(a, b):\n    if a > b:\n        return a\n    else:\n        return b'
+        },
+        {
+            id: 'modules',
+            name: 'Modules & Libraries',
+            example: `
+                <p>Libraries are pre-written code. Use <b>import</b> to use them.</p>
+                <p><b>Method 1</b>: Import the whole module.</p>
+                <pre><code>import math
+print(math.sqrt(16)) # 4.0</code></pre>
+                <p><b>Method 2</b>: Import specific function.</p>
+                <pre><code>from math import sqrt
+print(sqrt(16))</code></pre>
+            `,
+            question: 'Import the `math` module and print the square root (sqrt) of 25.',
+            answer: 'import math\nprint(math.sqrt(25))'
+        },
+        {
+            id: 'randomMod',
+            name: 'Random Module',
+            example: `
+                <p>Used to generate random numbers (like dice).</p>
+                <pre><code>import random
+# Random number between 1 and 10
+print(random.randint(1, 10))</code></pre>
+            `,
+            question: 'Import random and print a random number between 1 and 6.',
+            answer: 'import random\nprint(random.randint(1, 6))'
         }
     ];
 
-    // --- Global Variables & DOM Elements ---
-    let currentAnswer = ''; 
+    let currentAnswer = '';
+    let currentTopicId = ''; 
     const menu = document.getElementById('menu');
     const exampleTitle = document.getElementById('example-title');
     const exampleDesc = document.getElementById('example-description');
@@ -507,12 +631,11 @@ except:
     const checkBtn = document.getElementById('check-btn');
     const feedback = document.getElementById('feedback');
 
-    // --- Function Definitions ---
-
     function loadTopic(topicId) {
         const topic = topicsData.find(t => t.id === topicId);
         if (!topic) return;
 
+        currentTopicId = topicId; 
         exampleTitle.innerText = topic.name;
         exampleDesc.innerHTML = topic.example;
         exampleQ.innerText = 'Problem: ' + topic.question;
@@ -523,25 +646,48 @@ except:
         feedback.className = '';
     }
 
-    // --- [UPDATED] Check Answer function ---
-    // Now normalizes whitespace (spaces, tabs, newlines)
-    // This allows multi-line answers (like if-statements) to be validated correctly.
+    function saveProgress(topicId) {
+        let progress = JSON.parse(localStorage.getItem(PAGE_KEY)) || [];
+        
+        if (!progress.includes(topicId)) {
+            progress.push(topicId);
+            localStorage.setItem(PAGE_KEY, JSON.stringify(progress));
+        }
+        
+        updateButtonStyles();
+    }
+
+    function updateButtonStyles() {
+        let progress = JSON.parse(localStorage.getItem(PAGE_KEY)) || [];
+        
+        progress.forEach(completedId => {
+            const btn = document.getElementById('btn-' + completedId);
+            if (btn) {
+                btn.classList.add('completed');
+            }
+        });
+    }
+
     function checkAnswer() {
         if (currentAnswer === '') {
              alert('Please select a topic from the menu first.');
              return;
         }
 
-        // 1. Normalize user's input: trim and replace all whitespace (tabs, newlines, spaces) with a single space.
         const userText = userInput.value.trim().replace(/\s+/g, ' ');
-
-        // 2. Normalize the correct answer in the same way.
         const correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
 
-        // 3. Compare the normalized strings
         if (userText === correctAnswer) {
             feedback.innerText = 'Correct! 👏';
             feedback.className = 'correct'; 
+            
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            saveProgress(currentTopicId);
         } else {
             feedback.innerText = `Incorrect. 😥\nThe correct answer is:\n\n${currentAnswer}`;
             feedback.className = 'incorrect'; 
@@ -552,12 +698,13 @@ except:
         topicsData.forEach(topic => {
             const button = document.createElement('button');
             button.innerText = topic.name;
+            button.id = 'btn-' + topic.id; 
             button.onclick = () => loadTopic(topic.id);
             menu.appendChild(button);
         });
-    }
 
-    // --- Script Execution (Initialization) ---
+        updateButtonStyles();
+    }
     
     createMenuButtons();
     checkBtn.onclick = checkAnswer;
