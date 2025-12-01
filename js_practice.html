@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics Review ⚡</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Header for Back Link */
+        .container-header {
+            padding: 20px 20px 10px 20px;
+        }
+        .back-link {
+            font-size: 16px;
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+        
+        /* Top Menu Bar */
+        #menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #333;
+            padding: 10px 20px; 
+        }
+        #menu button {
+            background-color: #f1c40f; /* JS Yellow */
+            color: #333; /* Dark text for contrast on yellow */
+            font-weight: bold;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #menu button:hover {
+            background-color: #f39c12; /* Darker Yellow */
+            transform: translateY(-2px);
+        }
+
+        /* 완료된 버튼 스타일 (초록색 + 체크) */
+        #menu button.completed {
+            background-color: #2ecc71 !important; /* Green */
+            color: white; /* White text on green */
+            position: relative;
+            padding-right: 30px;
+        }
+        #menu button.completed::after {
+            content: "✅";
+            position: absolute;
+            right: 8px;
+            font-size: 12px;
+        }
+
+        /* Main Content Container */
+        #container {
+            display: flex;
+            flex-wrap: wrap; 
+            padding: 20px; 
+            gap: 20px; 
+        }
+
+        /* Common Panel Styles */
+        .panel {
+            flex: 1; 
+            min-width: 300px; 
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 20px;
+            box-sizing: border-box; 
+        }
+        .panel h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Left Example Panel */
+        #example-panel pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            overflow-x: auto; 
+            white-space: pre-wrap;
+        }
+        #example-question {
+            font-weight: bold;
+            color: #0056b3; 
+            margin-top: 20px;
+        }
+        #example-panel pre code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        /* Right Input Panel */
+        #user-input {
+            width: 100%;
+            height: 150px;
+            box-sizing: border-box; 
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: Consolas, "Courier New", monospace; 
+            font-size: 14px;
+        }
+        #check-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF; /* Blue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        #check-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Feedback Message */
+        #feedback {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap; 
+        }
+        .correct {
+            color: #155724; 
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            display: block !important;
+        }
+        .incorrect {
+            color: #721c24; 
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            display: block !important;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-external {
+            background-color: #f1c40f; /* JS Yellow */
+            color: #333;
+        }
+        .btn-external:hover {
+            background-color: #f39c12;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .container-footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="container-header">
+            <a href="index.html" class="back-link">← Back to Main</a>
+        </div>
+
+        <nav id="menu"></nav>
+
+        <main id="container">
+            <div id="example-panel" class="panel">
+                <h2 id="example-title"></h2>
+                <div id="example-description"></div>
+                <p id="example-question"></p>
+            </div>
+            <div id="input-panel" class="panel">
+                <h2>Input Panel</h2>
+                <p>Read the problem on the left and enter your JavaScript code.</p>
+                <textarea id="user-input" placeholder="Enter your code here..."></textarea>
+                <button id="check-btn">Check Answer</button>
+                <p id="feedback"></p>
+            </div>
+        </main>
+
+        <div class="container-footer">
+            <a href="https://html-css-js.com/" class="btn btn-external" target="_blank">
+                🌐 Live Web Practice Site
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+    // JS 페이지 전용 저장 키
+    const PAGE_KEY = 'js_practice_progress';
+
+    const topicsData = [
+        {
+            id: 'whatIsJs',
+            name: 'What is JavaScript?',
+            example: `
+                <p><b>JavaScript</b> is a programming language that adds <b>behavior</b> and <b>actions</b> to web pages.</p>
+                <ul>
+                    <li><b>HTML</b>: Structure (Skeleton)</li>
+                    <li><b>CSS</b>: Design (Skin/Clothing)</li>
+                    <li><b>JavaScript</b>: Actions (Moving/Thinking)</li>
+                </ul>
+                <p>Examples: Dark mode toggle, Pop-ups, Image sliders.</p>
+            `,
+            question: 'What is the role of JavaScript in a web page? (Answer with one word: Structure, Design, or Actions)',
+            answer: 'Actions'
+        },
+        {
+            id: 'consoleLog',
+            name: 'console.log()',
+            example: `
+                <p>Prints messages to the browser console (Developer Tools).</p>
+                <p>Used for testing and checking values, NOT for showing text to the user.</p>
+                <pre><code>console.log("Hello World");
+console.log(10 + 20);</code></pre>
+            `,
+            question: 'Write code to print "Test" to the console.',
+            answer: 'console.log("Test")'
+        },
+        {
+            id: 'alert',
+            name: 'alert()',
+            example: `
+                <p>Shows a popup message to the user.</p>
+                <pre><code>alert("Welcome!");
+alert("This is an error");</code></pre>
+            `,
+            question: 'Write code to show a popup with the message "Hello".',
+            answer: 'alert("Hello")'
+        },
+        {
+            id: 'onclick',
+            name: 'onclick Event',
+            example: `
+                <p>Makes something happen when an element is clicked.</p>
+                <pre><code>&lt;button onclick="alert('Clicked!')"&gt;
+  Click Me
+&lt;/button&gt;</code></pre>
+            `,
+            question: 'Write the attribute to add to a button to run alert("Hi") when clicked.',
+            answer: 'onclick="alert(\'Hi\')"'
+        },
+        {
+            id: 'getElementById',
+            name: 'getElementById()',
+            example: `
+                <p>Finds an HTML element by its <b>id</b>.</p>
+                <pre><code>// HTML: &lt;h1 id="title"&gt;Hello&lt;/h1&gt;
+
+// JavaScript
+document.getElementById("title");</code></pre>
+            `,
+            question: 'Write code to find an element with id="logo".',
+            answer: 'document.getElementById("logo")'
+        },
+        {
+            id: 'textContent',
+            name: '.textContent',
+            example: `
+                <p>Gets or changes the text inside an element.</p>
+                <pre><code>// Change text to "Bye"
+document.getElementById("demo").textContent = "Bye";</code></pre>
+            `,
+            question: 'Change the text content of the element with id="box" to "Open".',
+            answer: 'document.getElementById("box").textContent = "Open"'
+        },
+        {
+            id: 'syntax',
+            name: 'Syntax Rules',
+            example: `
+                <p><b>Case-sensitive</b>: <code>myVar</code> and <code>myvar</code> are different.</p>
+                <p><b>Matching pairs</b>: Parentheses <code>()</code> and quotes <code>""</code> must match.</p>
+                <pre><code>// Correct
+console.log("Hi");
+
+// Incorrect (Error)
+console.log("Hi); // Missing quote
+document.getelementbyid("id"); // Wrong capitalization</code></pre>
+            `,
+            question: 'Is JavaScript case-sensitive? (Yes or No)',
+            answer: 'Yes'
+        },
+        {
+            id: 'comments',
+            name: 'Comments',
+            example: `
+                <p>Comments are for humans, ignored by the computer. Used to explain code.</p>
+                <pre><code>// This is a single line comment
+
+/* This is a 
+   multi-line comment 
+*/</code></pre>
+            `,
+            question: 'Create a single-line comment that says: logic here',
+            answer: '// logic here'
+        },
+        {
+            id: 'darkMode',
+            name: 'Dark Mode Logic',
+            example: `
+                <p>Logic flow for Dark Mode:</p>
+                <ol>
+                    <li>Button Click</li>
+                    <li>JS changes <code>body</code> class</li>
+                    <li>CSS changes colors based on class</li>
+                </ol>
+                <pre><code>// Set body class to "dark-mode"
+document.body.className = "dark-mode";</code></pre>
+            `,
+            question: 'Write code to set the body class name to "dark".',
+            answer: 'document.body.className = "dark"'
+        }
+    ];
+
+    let currentAnswer = '';
+    let currentTopicId = '';
+    const menu = document.getElementById('menu');
+    const exampleTitle = document.getElementById('example-title');
+    const exampleDesc = document.getElementById('example-description');
+    const exampleQ = document.getElementById('example-question');
+    const userInput = document.getElementById('user-input');
+    const checkBtn = document.getElementById('check-btn');
+    const feedback = document.getElementById('feedback');
+
+    function loadTopic(topicId) {
+        const topic = topicsData.find(t => t.id === topicId);
+        if (!topic) return;
+
+        currentTopicId = topicId;
+        exampleTitle.innerText = topic.name;
+        exampleDesc.innerHTML = topic.example;
+        exampleQ.innerText = 'Problem: ' + topic.question;
+        currentAnswer = topic.answer;
+        
+        userInput.value = '';
+        feedback.innerText = '';
+        feedback.className = '';
+    }
+
+    function saveProgress(topicId) {
+        let progress = JSON.parse(localStorage.getItem(PAGE_KEY)) || [];
+        if (!progress.includes(topicId)) {
+            progress.push(topicId);
+            localStorage.setItem(PAGE_KEY, JSON.stringify(progress));
+        }
+        updateButtonStyles();
+    }
+
+    function updateButtonStyles() {
+        let progress = JSON.parse(localStorage.getItem(PAGE_KEY)) || [];
+        progress.forEach(completedId => {
+            const btn = document.getElementById('btn-' + completedId);
+            if (btn) {
+                btn.classList.add('completed');
+            }
+        });
+    }
+
+    function checkAnswer() {
+        if (currentAnswer === '') {
+             alert('Please select a topic from the menu first.');
+             return;
+        }
+
+        // Normalize: trim spaces and handle quotes flexibility
+        // Converting quotes to simple ones for easier comparison in JS
+        let userText = userInput.value.trim().replace(/\s+/g, ' ');
+        let correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
+        
+        // Simple quote normalization (replace ' with " for comparison)
+        // This allows alert('Hi') and alert("Hi") to both be correct
+        userText = userText.replace(/'/g, '"');
+        correctAnswer = correctAnswer.replace(/'/g, '"');
+
+        // Case-insensitive check for text answers (like "Yes", "Actions")
+        // but Case-sensitive for code. 
+        // We will stick to exact match for code stability, but handle specific text answers.
+        
+        let isCorrect = false;
+        if (currentTopicId === 'whatIsJs' || currentTopicId === 'syntax') {
+             isCorrect = userText.toLowerCase() === correctAnswer.toLowerCase();
+        } else {
+             isCorrect = userText === correctAnswer;
+        }
+
+        if (isCorrect) {
+            feedback.innerText = 'Correct! 👏';
+            feedback.className = 'correct'; 
+            
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            saveProgress(currentTopicId);
+        } else {
+            feedback.innerText = `Incorrect. 😥\nThe correct answer is:\n\n${currentAnswer}`;
+            feedback.className = 'incorrect'; 
+        }
+    }
+
+    function createMenuButtons() {
+        topicsData.forEach(topic => {
+            const button = document.createElement('button');
+            button.innerText = topic.name;
+            button.id = 'btn-' + topic.id;
+            button.onclick = () => loadTopic(topic.id);
+            menu.appendChild(button);
+        });
+        updateButtonStyles();
+    }
+
+    createMenuButtons();
+    checkBtn.onclick = checkAnswer;
+
+    if (topicsData.length > 0) {
+        loadTopic(topicsData[0].id);
+    }
+    </script>
+</body>
+</html>
