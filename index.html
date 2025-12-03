@@ -80,15 +80,44 @@
             right: 20px;
         }
         .btn-login {
-            background-color: #4285F4; /* Google Blue */
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            /* 배치 설정 (Flexbox) */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;  
+
+            background-color: #ffffff; 
+            color: #5f6368; 
+            border: 1px solid #dadce0;            
+            border-radius: 50px; 
+            padding: 8px 16px 8px 8px; 
+            
             cursor: pointer;
             font-weight: bold;
+            font-family: 'Roboto', sans-serif; 
+            font-size: 14px;
+            
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s;
         }
-        .btn-login:hover { background-color: #357ae8; }
+
+        .google-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .btn-login:hover { 
+            background-color: #f8faff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+            border-color: #d2e3fc;
+            transform: translateY(-1px);
+        }
+
+        .btn-login:active {
+            background-color: #f1f3f4;
+            box-shadow: none;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -119,4 +148,5 @@
     </p>
     <script type="module" src="firebase.js"></script>
 </body>
+
 </html>
