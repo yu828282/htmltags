@@ -487,8 +487,8 @@ text-align: right;   /* Right */</code></pre>
                 return;
         }
 
-        const userText = userInput.value.trim().replace(/\s+/g, ' ');
-        const correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
+        let userText = userInput.value.trim().replace(/\s+/g, ' ');
+        let correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
 
         // (옵션) 자바스크립트 페이지인 경우 따옴표 유연하게 처리
         userText = userText.replace(/'/g, '"');
