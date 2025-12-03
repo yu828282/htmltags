@@ -44,7 +44,10 @@ onAuthStateChanged(auth, (user) => {
         // 로그아웃 되었을 때
         if(loginContainer) {
             loginContainer.innerHTML = `
-                <button id="login-btn" class="btn-login">Login</button>
+                <button id="login-btn" class="btn-login">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" class="google-icon">
+                    <span>login</span>
+                </button>
             `;
             document.getElementById('login-btn').addEventListener('click', handleLogin);
         }
@@ -58,7 +61,7 @@ function handleLogin() {
             // 로그인 성공
         }).catch((error) => {
             console.error(error);
-            alert("로그인 실패: " + error.message);
+            alert("Login failed : " + error.message);
         });
 }
 
@@ -106,4 +109,5 @@ export async function getUserProgress(pageKey) {
     } else {
         return [];
     }
+
 }
