@@ -180,9 +180,24 @@
             text-align: center;
             border-top: 2px solid #e0e0e0;
         }
+        
+        .login-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000; 
+        }
+        .btn-login {
+            background-color: #4285F4; color: white; border: none; 
+            padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            .login-wrapper { position: static; text-align: center; margin-bottom: 10px; }
+        }
     </style>
 </head>
 <body>
+    <div id="login-container" class="login-wrapper"></div>
     <div class="container">
 
         <div class="container-header">
@@ -213,7 +228,8 @@
         </div>
 
     </div> 
-    <script>
+    <script type="module">
+    import { saveProgressToDB, getUserProgress } from './firebase.js';
     const PAGE_KEY = 'css_practice_progress';
     
     // --- CSS Practice Data ---
@@ -450,73 +466,77 @@ text-align: right;   /* Right */</code></pre>
         feedback.innerText = '';
         feedback.className = '';
     }
-
-    function saveProgress(topicId) {
-        let progress = JSON.parse(localStorage.getItem(PAGE_KEY)) || [];
+    // DB에서 진도 불러오기 (firebase.js가 로그인 시 호출함)
+    window.loadProgressFromDB = async function(uid) {
+        // DB에서 데이터 가져오기
+        const progress = await getUserProgress(PAGE_KEY); 
         
-        if (!progress.includes(topicId)) {
-            progress.push(topicId);
-            localStorage.setItem(PAGE_KEY, JSON.stringify(progress));
+        // 가져온 데이터로 버튼 색칠하기
+        if (progress && progress.length > 0) {
+            progress.forEach(completedId => {
+                const btn = document.getElementById('btn-' + completedId);
+                if (btn) btn.classList.add('completed');
+            });
         }
-        
-        updateButtonStyles();
     }
 
-    function updateButtonStyles() {
-        let progress = JSON.parse(localStorage.getItem(PAGE_KEY)) || [];
-        
-        progress.forEach(completedId => {
-            const btn = document.getElementById('btn-' + completedId);
-            if (btn) {
-                btn.classList.add('completed');
-            }
-        });
-    }
-
+    // [UPDATED] 정답 확인 및 DB 저장
     function checkAnswer() {
         if (currentAnswer === '') {
-            alert('Please select a topic from the menu first.');
-            return;
+                alert('Please select a topic from the menu first.');
+                return;
         }
 
         const userText = userInput.value.trim().replace(/\s+/g, ' ');
         const correctAnswer = currentAnswer.trim().replace(/\s+/g, ' ');
 
+        // (옵션) 자바스크립트 페이지인 경우 따옴표 유연하게 처리
+        userText = userText.replace(/'/g, '"');
+        correctAnswer = correctAnswer.replace(/'/g, '"');
+
         if (userText === correctAnswer) {
             feedback.innerText = 'Correct! 👏';
-            feedback.className = 'correct';
+            feedback.className = 'correct'; 
             
+            // 폭죽 효과
             confetti({
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 }
             });
-            
-            saveProgress(currentTopicId);
+
+            // [핵심] Firebase DB에 저장하기
+            saveProgressToDB(PAGE_KEY, currentTopicId);
+
+            // [즉시 반영] 버튼 색상 변경 (DB 갔다오는 시간 절약)
+            const btn = document.getElementById('btn-' + currentTopicId);
+            if (btn) btn.classList.add('completed');
+
         } else {
             feedback.innerText = `Incorrect. 😥\nThe correct answer is:\n\n${currentAnswer}`;
-            feedback.className = 'incorrect';
+            feedback.className = 'incorrect'; 
         }
     }
 
+    // 메뉴 버튼 생성
     function createMenuButtons() {
         topicsData.forEach(topic => {
             const button = document.createElement('button');
             button.innerText = topic.name;
-            button.id = 'btn-' + topic.id;
+            button.id = 'btn-' + topic.id; // ID 부여 필수
             button.onclick = () => loadTopic(topic.id);
             menu.appendChild(button);
         });
-    
-        updateButtonStyles();
     }
-    
+
+    // --- 초기화 실행 ---
     createMenuButtons();
-    checkBtn.onclick = checkAnswer;
+    
+    checkBtn.addEventListener('click', checkAnswer);
 
     if (topicsData.length > 0) {
         loadTopic(topicsData[0].id);
     }
-    </script>
+</script>
 </body>
 </html>

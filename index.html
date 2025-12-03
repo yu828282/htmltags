@@ -73,9 +73,26 @@
             font-size: 0.9em;
             color: #aaa;
         }
+        /* login */
+        .login-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .btn-login {
+            background-color: #4285F4; /* Google Blue */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-login:hover { background-color: #357ae8; }
     </style>
 </head>
 <body>
+    <div id="login-container" class="login-wrapper"></div>
     <div class="container">
         <h1>Welcome to the Interactive Code Practice Lab!</h1>
         <p>
@@ -100,5 +117,6 @@
     <p class="footer-credit">
         © 2025. Yuri Choi
     </p>
+    <script type="module" src="firebase.js"></script>
 </body>
 </html>
